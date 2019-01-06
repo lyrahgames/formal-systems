@@ -1,0 +1,521 @@
+\documentclass[9pt,fleqn,twoside,a4paper]{article}
+\usepackage{extsizes}
+\usepackage[a4paper,left=27mm,right=27mm,top=30mm,bottom=30mm]{geometry}
+\linespread{1.15}\selectfont
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{times}
+\usepackage[leqno]{amsmath,mathtools}
+\allowdisplaybreaks
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage[mathscr]{euscript}
+\usepackage{multicol}
+\usepackage[autostyle,german=guillemets]{csquotes}
+\usepackage{turnstile}
+\usepackage{enumitem}
+
+\usepackage{fancyhdr}
+\fancypagestyle{titlestyle}{
+  \fancyhf{}
+  % \fancyfoot[C]{\footnotesize\bigskip\thepage/\pageref{LastPage}}
+  \fancyfoot[C]{\footnotesize\bigskip\thepage}
+  \renewcommand{\footrulewidth}{0.5pt}
+  \renewcommand{\headrulewidth}{0pt}
+}
+\fancypagestyle{mainstyle}{
+  \fancyhf{}
+  \fancyfoot[C]{\footnotesize\bigskip\thepage}
+  \fancyhead[LO,RE]{\footnotesize \leftmark \smallskip} %left
+  \fancyhead[RO,LE]{\footnotesize \rightmark \smallskip} %right
+  \renewcommand{\footrulewidth}{0.5pt}
+  \renewcommand{\headrulewidth}{0.5pt}
+}
+% \pagestyle{mainstyle}
+
+\usepackage{uniinput}
+\usepackage{utilities}
+
+\renewcommand{\separate}{\quad}
+\renewcommand{\implies}{\quad\Longrightarrow\quad}
+\renewcommand{\iff}{\quad\Longleftrightarrow\quad}
+\newcommand{\tProofable}{\sststile{\mathrm{T}}{}{}}
+\newcommand{\fregeProofable}{\sststile{\mathrm{Fre}}{}{}}
+\newcommand{\mFregeProofable}{\sststile{\mathrm{\square Fre}}{}{}}
+\newcommand{\fregeAxiomI}{\mathrm{F1}}
+\newcommand{\fregeAxiomII}{\mathrm{F2}}
+\newcommand{\fregeAxiomIII}{\mathrm{F3}}
+\newcommand{\kAxiom}{\mathrm{K}}
+\newcommand{\mendelsonProofable}{\sststile{\mathrm{Men}}{}{}}
+\newcommand{\mendelsonAxiomI}{\mathrm{M1}}
+\newcommand{\mendelsonAxiomII}{\mathrm{M2}}
+\newcommand{\mendelsonAxiomIII}{\mathrm{M3}}
+\newcommand{\modusPonens}{\mathrm{MP}}
+\newcommand{\fulfills}{\sdtstile{}{}{}}
+\newcommand{\kripkeFulfills}{\sdtstile{K}{}{}}
+\newcommand{\infers}{\ddtstile{}{}{}}
+\newcommand{\qedBox}{\hfill\ensuremath{\square}}
+
+\begin{document}
+  \pagestyle{mainstyle}
+  \thispagestyle{titlestyle}
+  \hrule
+  \begin{center}
+    \huge
+    % \bfseries
+    \scshape
+    Logiksysteme \\ Übungsserie 8: Lösungen
+  \end{center}
+  \medskip
+  \footnotesize
+  \begin{minipage}[c]{0.49\textwidth}
+    Markus Pawellek \\
+    markuspawellek@gmail.com
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.49\textwidth}
+    \raggedleft
+    \today
+  \end{minipage}
+  \medskip
+  \normalsize
+  \hrule
+  \bigskip
+
+  \begin{multicols}{2}
+
+  \noindent
+  Im Folgenden seien α, β und γ drei beliebige modallogische Formeln.
+  Wir definieren zunächst die Axiome des Frege-Kalküls in der Modallogik.
+  \begin{alignat*}{3}
+    &\fregeAxiomI(α,β)  &&\define\ α\to(β\to α) \\
+    &\fregeAxiomII(α,β,γ)  &&\define\
+    \begin{aligned}[t]
+      &(α\to(β\to γ)) \\
+      &\to ((α\to β)\to(α\to γ))
+    \end{aligned}\\
+    &\fregeAxiomIII(α)  &&\define\ \lnot\lnot α\to α \\
+    &\kAxiom(α,β) &&\define\ \square(α\to β)\to(\square α \to \square β)
+  \end{alignat*}
+  Die Schlussregeln des modallogischen Frege-Kalküls sind \enquote{Modus Ponens} und \enquote{Generalisierung} und wie folgt definiert.
+  \begin{alignat*}{3}
+    &\modusPonens(α,α\to β) &&\define\ \frac{α\separate α\to β}{β} \\
+    &\mathrm{GEN}(α) &&\define\ \frac{α}{\square α}
+  \end{alignat*}
+  Aus der Vorlesung sind zudem einige weitere Frege-Theoreme bekannt, die sich vollkommen analog zu den bereits definierten Axiomen verhalten und sich aufgrund ihrer Herleitung auch auf modallogische Formeln anwenden lassen.
+  Für die aufgelisteten Frege-Beweise verwenden wir die im Folgenden definierten Theoreme.
+  \begin{alignat*}{3}
+    &\mathrm{ID}(α) &&\define\ α\to α \\
+    &\mathrm{XX}(α,β) &&\define\ (α\to β) \to ((\lnot α\to β)\to β) \\
+    &\mathrm{NN}(α) &&\define\ α\to\lnot\lnot α \\
+    &\mathrm{EFQL}(α) &&\define\ \perp\to α \\
+    &\mathrm{D}(α,β) &&\define\ α\to((α\toβ)\to β) \\
+    &\mathrm{IM}(α,β) &&\define\ (α\to β) \to (\lnot β\to \lnot α) \\
+    &\mathrm{IM2}(α,β) &&\define\ (\lnotα\to \lnotβ) \to ( β\to α) \\
+    &\mathrm{E}(α,β) &&\define\ α\to(\lnot β\to\lnot(α\to β)) \\
+    &\mathrm{MNN}(α) &&\define\ \lnot\lnot\square α \to \square\lnot\lnot α
+  \end{alignat*}
+  Zudem erweist es sich als ausgesprochen praktisch weitere Schlussregeln zu beweisen, die die eigentlichen Beweise verkürzen und zudem auch übersichtlicher und verständlicher gestalten.
+
+  \paragraph{Lemma:}
+  Im Frege-Kalkül gilt die folgende Schlussregel.
+  \[
+    \mathrm{TT}(α,β) \define \frac{α}{β\to α}
+  \]
+  Beweis:
+  \begin{align}
+    \tag{1}
+      & α
+      && \text{Hypothese} \\
+    \tag{2}
+      & α\to(β\to α)
+      && \fregeAxiomI(α,β) \\
+    \tag{3}
+      & β\to α
+      && \modusPonens((1),(2))
+  \end{align}
+  Damit ist die Aussage gezeigt. \qedBox
+
+  \paragraph{Lemma:}
+  Im Frege-Kalkül gilt die folgende Schlussregel.
+  \[
+    \mathrm{TRANS}(α\to β,β\to γ) \define \frac{α\to β \separate β\to γ}{α\to γ}
+  \]
+  Beweis:
+  \begin{align}
+    \tag{1}
+      & α\to β
+      && \text{Hypothese} \\
+    \tag{2}
+      & β \to γ
+      && \text{Hypothese} \\
+    \tag{3}
+      & α\to(β\to γ)
+      && \mathrm{TT}((2),α) \\
+    \tag{4}
+      &
+        \begin{aligned}[t]
+          &(α\to(β\to γ)) \\
+          &\to((α\to β)\to(α\to γ))
+        \end{aligned}
+      && \fregeAxiomII(α,β,γ) \\
+    \tag{5}
+      & (α\to β)\to(α\to γ)
+      && \modusPonens((3),(4)) \\
+    \tag{6}
+      & α\to γ
+      && \modusPonens((1),(5))
+  \end{align}
+  Damit ist die Aussage gezeigt. \qedBox
+
+  \section*{Aufgabe 30} % (fold)
+  \label{sec:aufgabe_30}
+
+    Im Folgenden seien α und β zwei beliebige modallogische Formeln.
+    Die gezeigten Beweise stellen keine Anforderungen an α oder β.
+    \paragraph{(1):} % (fold)
+      Die modallogische Frege-Beweisbarkeit können wir durch den folgenden direkten Beweis zeigen.
+      \begin{align}
+        \tag{1}
+          & \lnot\lnot α \to α
+          && \fregeAxiomIII(α) \\
+        \tag{2}
+          &
+            \begin{aligned}[t]
+              &\square(\lnot\lnot α \to α) \\
+              &\to (\square\lnot\lnot α \to \square α)
+            \end{aligned}
+          && \kAxiom(\lnot\lnot α, α) \\
+        \tag{3}
+          & \square(\lnot\lnot α\to α)
+          && \mathrm{GEN}((1)) \\
+        \tag{4}
+          & \square\lnot\lnot α \to \square α
+          && \modusPonens((3),(2)) \\
+        \tag{5}
+          & \square α \to \lnot\lnot \square α
+          && \mathrm{NN}(\square α) \\
+        \tag{6}
+          & \square\lnot\lnot α \to \lnot\lnot\square α
+          && \mathrm{TRANS}((4),(5))
+      \end{align}
+      Es gilt damit $\mFregeProofable \square\lnot\lnot α \to \lnot\lnot\square α$. \qedBox
+    % paragraph paragraph_name (end)
+    \paragraph{(2):} % (fold)
+      Die modallogische Frege-Beweisbarkeit können wir durch den folgenden direkten Beweis zeigen.
+      \begin{align}
+        \tag{1}
+          & α \to ((α\to β)\to β)
+          && \mathrm{D}(α,β) \\
+        \tag{2}
+          &
+            \begin{aligned}[t]
+              &\square(α \to ((α\to β)\to β)) \\
+              &\to (\square α \to \square((α\to β)\to β))
+            \end{aligned}
+          && \kAxiom((1)) \\
+        \tag{3}
+          & \square(α \to ((α\to β)\to β))
+          && \mathrm{GEN}((1)) \\
+        \tag{4}
+          & \square α \to \square((α\to β)\to β)
+          && \modusPonens((3),(2)) \\
+        \tag{5}
+          &
+            \begin{aligned}[t]
+              &\square((α\to β)\to β) \\
+              &\to (\square(α\to β)\to \square β)
+            \end{aligned}
+          && \mathrm{K}(α\to β, β) \\
+        \tag{6}
+          & \square α \to (\square(α\to β)\to \square β)
+          && \mathrm{TRANS}((4),(5))
+      \end{align}
+      Es gilt damit $\mFregeProofable \square α\to(\square(α\to β)\to\square β)$. \qedBox
+    % paragraph paragraph_name (end)
+    \paragraph{(3):} % (fold)
+      Der Einfachheit halber soll die folgende Hypothesenmenge definiert werden.
+      \[
+        Γ\define \set{\square(α\to β),\square α, \lnot\square β}{}
+      \]
+      Die modallogische Frege-Beweisbarkeit können wir dann durch den folgenden direkten Beweis zeigen.
+      \begin{align}
+        \tag{1}
+          & Γ\mFregeProofable \square(α\to β)
+          && \in Γ \\
+        \tag{2}
+          & Γ\mFregeProofable \square α
+          && \in Γ \\
+        \tag{3}
+          & Γ\mFregeProofable \square β \to \perp
+          && \in Γ \\
+        \tag{4}
+          & Γ\mFregeProofable
+            \begin{aligned}[t]
+              &\square(α\to β) \\
+              &\to(\square α\to\square β)
+            \end{aligned}
+          && \kAxiom(α,β) \\
+        \tag{5}
+          & Γ\mFregeProofable \square α \to \square β
+          && \modusPonens((1),(4)) \\
+        \tag{6}
+          & Γ\mFregeProofable \square β
+          && \modusPonens((2),(5)) \\
+        \tag{7}
+          & Γ\mFregeProofable \perp
+          && \modusPonens((6),(3))
+      \end{align}
+      Die gewünschte Aussage ist damit gezeigt. \qedBox
+    % paragraph paragraph_name (end)
+    \paragraph{(4):} % (fold)
+      Die modallogische Frege-Beweisbarkeit können wir durch den folgenden direkten Beweis zeigen. Hierbei verwenden die in Abschnitt 5 bewiesene Formel.
+      \medskip
+      \small
+      \begin{align}
+        \tag{1}
+          & α\to α
+          && \mathrm{ID}(α) \\
+        \tag{2}
+          & \top\to(α\to α)
+          && \mathrm{TT}((1),\top) \\
+        \tag{3}
+          &
+            \begin{aligned}[t]
+              &(\top\to(α\to α)) \\
+              &\to (\lnot(α\to α)\to\lnot\top)
+            \end{aligned}
+          && \mathrm{IM}(\top,(1)) \\
+        \tag{4}
+          & \lnot(α\to α)\to\lnot\top
+          && \modusPonens((2),(3)) \\
+        \tag{5}
+          & \square(\lnot(α\to α)\to\lnot\top)
+          && \mathrm{GEN}((4)) \\
+        \tag{6}
+          &
+            \begin{aligned}[t]
+              &\square(\lnot(α\to α)\to\lnot\top) \\
+              &\to (\square\lnot(α\to α))\to\square\lnot\top)
+            \end{aligned}
+          && \kAxiom((4)) \\
+        \tag{7}
+          & \square\lnot(α\to α))\to\square\lnot\top
+          && \modusPonens((5),(6)) \\
+        \tag{8}
+          &
+            \begin{aligned}[t]
+              &(\square\lnot(α\to α))\to\square\lnot\top) \\
+              &\to(\lnot\square\lnot\top \to \lnot\square\lnot(α\to α))
+            \end{aligned}
+          && \mathrm{IM}((7)) \\
+        \tag{9}
+          & \lnot\square\lnot\top \to \lnot\square\lnot(α\to α)
+          && \modusPonens((7),(8)) \\
+        \tag{10}
+          & \lozenge\top \to \lozenge(α\to α)
+          && (9), \lozenge=\lnot\square\lnot \\
+        \tag{11}
+          &
+            \begin{aligned}[t]
+              &\lozenge(α\to α) \\
+              &\to (\square α \to \lozenge α)
+            \end{aligned}
+          && \text{Teilaufgabe 5} \\
+        \tag{12}
+          & \lozenge\top \to (\square α \to \lozenge α)
+          && \mathrm{TRANS}((10),(11))
+      \end{align}
+      \normalsize
+      \medskip
+      Es gilt damit $\mFregeProofable \lozenge\top \to (\square α \to \lozenge α)$. \qedBox
+    % paragraph paragraph_name (end)
+    \paragraph{(5):} % (fold)
+      Die modallogische Frege-Beweisbarkeit können wir durch den folgenden direkten Beweis zeigen.
+      \medskip
+      \footnotesize
+      \begin{align}
+        \tag{1}
+          & α\to(\lnot β \to \lnot(α\to β))
+          && \mathrm{E}(α,β) \\
+        \tag{2}
+          & \square(α\to(\lnot β \to \lnot(α\to β)))
+          && \mathrm{GEN}((1)) \\
+        \tag{3}
+          &
+            \begin{aligned}[t]
+              &\square(α\to(\lnot β \to \lnot(α\to β))) \\
+              &\to (\square α \to \square(\lnot β \to \lnot(α\to β)))
+            \end{aligned}
+          && \kAxiom((1)) \\
+        \tag{4}
+          & \square α \to \square(\lnot β \to \lnot(α\to β))
+          && \modusPonens((2),(3)) \\
+        \tag{5}
+          &
+            \begin{aligned}[t]
+              &\square(\lnot β \to \lnot(α\to β)) \\
+              &\to (\square\lnot β \to \square\lnot(α\to β))
+            \end{aligned}
+          && \kAxiom(\lnot β, \lnot(α\to β)) \\
+        \tag{6}
+          & \square α \to (\square\lnot β \to \square\lnot(α\to β))
+          && \mathrm{TRANS}((4),(5)) \\
+        \tag{7}
+          &
+            \begin{aligned}[t]
+              &(\square\lnotβ \to \square\lnot(α\to β)) \\
+              &\to (\lnot\square\lnot(α\to β) \to \lnot\square\lnot β)
+            \end{aligned}
+          && \mathrm{IM}(
+            \begin{aligned}[t]
+              &\square\lnot β,\\
+              &\square\lnot(α\toβ))
+            \end{aligned} \\
+        \tag{8}
+          & \square α \to (\lozenge(α\to β) \to \lozenge β)
+          &&
+            \begin{aligned}[c]
+              & \mathrm{TRANS}((6),(7)), \\
+              & \lozenge = \lnot\square\lnot
+            \end{aligned} \\
+        \tag{9}
+          &
+            \begin{aligned}[t]
+              &(\square α \to (\lozenge(α\to β)\to \lozenge β)) \\
+              &\to (
+                \begin{aligned}[t]
+                  &(\square α\to\lozenge(α\to β)) \\
+                  &\to(\square α\to\lozenge β))
+                \end{aligned}
+            \end{aligned}
+          && \fregeAxiomII((8)) \\
+        \tag{10}
+          &
+            \begin{aligned}[t]
+              &(\square α\to\lozenge(α\to β)) \\
+              &\to(\square α\to\lozenge β)
+            \end{aligned}
+          && \modusPonens((8),(9)) \\
+        \tag{11}
+          & \lozenge(α\to β) \to (\square α \to \lozenge(α\to β))
+          && \fregeAxiomI(\lozenge(α\to β), \square α) \\
+        \tag{12}
+          & \lozenge(α\to β) \to (\square α \to \lozenge β)
+          && \mathrm{TRANS}((11),(10))
+      \end{align}
+      \normalsize
+
+      \medskip\noindent
+      Es gilt damit $\mFregeProofable \lozenge(α\to β) \to (\square α \to \lozenge β)$. \qedBox
+    % paragraph paragraph_name (end)
+
+  % section aufgabe_30 (end)
+
+  \section*{Aufgabe 31} % (fold)
+  \label{sec:aufgabe_31}
+
+    Für das Frege-Kalkül der Modallogik T fügen wir ein weiteres Axiom zu dem bekannten modallogischen Frege-Kalkül hinzu.
+    \[
+      T(α)\define α\to\lnot\square\lnot α
+    \]
+
+    \paragraph{(1):} % (fold)
+      Für die gewünschte Aussage sei der folgende direkte Beweis gegeben.
+      \begin{align}
+        \tag{1}
+          & \lnot A \to\lnot\square\lnot\lnot A
+          && \mathrm{T}(\lnot A) \\
+        \tag{2}
+          &
+            \begin{aligned}[t]
+              &(\lnot A \to\lnot\square\lnot\lnot A) \\
+              &\to (\square\lnot\lnot A\to A)
+            \end{aligned}
+          && \mathrm{IM2}(A,\square\lnot\lnot A) \\
+        \tag{3}
+          & \square\lnot\lnot A\to A
+          && \modusPonens((1),(2)) \\
+        \tag{4}
+          & \lnot\lnot\square A \to \square\lnot\lnot A
+          && \mathrm{MNN}(A) \\
+        \tag{5}
+          & \lnot\lnot\square A \to A
+          && \mathrm{TRANS}((4),(3)) \\
+        \tag{6}
+          & \square A \to \lnot\lnot\square A
+          && \mathrm{NN}(\square A) \\
+        \tag{7}
+          & \square A \to A
+          && \mathrm{TRANS}((6),(5))
+      \end{align}
+      Es gilt damit $\tProofable \square A\to A$. \qedBox
+    % paragraph paragraph_name (end)
+    \paragraph{(2):} % (fold)
+      Wir wollen nun die Korrektheit des T-Frege-Kalküls durch eine vollständige Induktion zeigen.
+      Hierzu verwenden wir das bereits bewiesene Korrektheitslemma des modallogischen Frege-Kalküls.
+      Der hauptsächliche Unterschied besteht in der Existenz eines zusätzlichen Axioms.
+      Dessen Gültigkeit wird im Induktionsanfang bewiesen.
+      \paragraph{Induktionsanfang:} % (fold)
+      \label{par:induktionsanfang_}
+        Es sei α eine modallogische Formel, für die $\tProofable α$ gilt und ein T-Frege-Beweis mit der Länge Eins existiert.
+        In diesem Fall kann es sich bei α nur um ein Axiom des T-Frege-Kalküls handeln.
+
+        Die Gültigkeit der ersten vier Axiome wurde bereits im Korrektheitslemma des modallogischen Frege-Kalküls gezeigt.
+        Aus dieser Gültigkeit folgt auch unmittelbar die Erfüllung für alle reflexiven Kripke-Modelle und damit deren T-Gültigkeit.
+        Es bleibt zu zeigen, dass $\mathrm{T}(φ)$ für alle modallogischen Formeln φ T-gültig ist.
+
+        Es seien eine beliebiges reflexives Kripke-Modell $M=(W,R,ξ)$ und eine beliebige Welt $w\in W$ gegeben.
+        In diesem Falle gilt die folgende Äquivalenz.
+        \begin{align*}
+          &M,w\kripkeFulfills φ\to\lnot\square\lnot φ \\
+          &\iff M,w \not\kripkeFulfills φ \quad\text{oder}\quad M,w\not\kripkeFulfills \square\lnot φ \\
+          &\iff
+            \begin{aligned}[t]
+              &M,w \not\kripkeFulfills φ \quad\text{oder} \\
+              &\exists t\in W\colon (w,t)\in R \quad \text{und}\quad M,t\kripkeFulfills φ
+            \end{aligned}
+        \end{align*}
+        \paragraph{Fall $M,w\not\kripkeFulfills φ$:} % (fold)
+          \[
+            \iff \text{wahr}
+          \]
+        % paragraph fall_ (end)
+        \paragraph{Fall $M,w\kripkeFulfills φ$:} % (fold)
+          Aufgrund der Reflexivität von $M$ gilt zudem $(w,w)\in R$.
+          \begin{align*}
+            &\iff \exists t\in W\colon (w,t)\in R \quad \text{und}\quad M,t\kripkeFulfills φ \\
+            &\stackrel{\mathclap{\text{(Reflexivität)}}}{\iff} \text{wahr}
+          \end{align*}
+        % paragraph fall_ (end)
+
+        Das Axiom $T(φ)$ ist damit für alle modallogischen Formeln φ gültig.
+      % paragraph induktionsanfang_ (end)
+      \paragraph{Induktionsvoraussetzung:} % (fold)
+      \label{par:induktionsvoraussetzung_}
+        Es seien nun $n\in\setNatural$ und α eine modallogische Formel mit $\tProofable α$ und einem T-Frege-Beweis mit der Länge kleiner gleich $n$.
+        In diesem Falle ist α T-gültig.
+      % paragraph induktionsvoraussetzung_ (end)
+      \paragraph{Induktionsschritt:} % (fold)
+      \label{par:induktionsschritt_}
+        Es sei α eine modallogische Formel mit $\tProofable α$ und einem T-Frege-Beweis $(α_k)_\set{k\in\setNatural}{k\leq n+1}$ der Länge $n+1$.
+        Handelt es sich bei $α=α_{n+1}$ um ein Axiom des T-Frege-Kalküls, so ist α nach der Betrachtung im Induktionsanfang auch T-gültig.
+        Andernfalls kann $α_{n+1}$ nur aus den Schlussregeln $\modusPonens(α_i,α_j)$ mit $i,j\in\setNatural$ und $i,j\leq n$ und $α_j = α_i\to α_{n+1}$ oder $\mathrm{GEN}(α_k)$ mit $k\in\setNatural$ und $k\leq n$ und $α_{n+1} = \square α_k$ entstehen.
+        Für beide Fälle wurde bereits im Korrektheitslemma des Frege-Kalküls für modallogische Formeln die Gültigkeit der Formel $α_{n+1}$ gezeigt.
+        Demzufolge muss $α=α_{n+1}$ ebenfalls eine T-gültige Formel sein.
+      % paragraph induktionsschritt_ (end)
+    % paragraph paragraph_name (end)
+
+    Die ausgeführte vollständige Induktion zeigt die Korrektheit des T-Frege-Kalküls in Bezug auf die Modallogik T.
+    Es gilt für alle modallogischen Formeln φ das Folgende.
+    \[
+      \tProofable φ \implies \sdtstile{r}{}{} φ
+    \]
+    Die Aussage wurde damit gezeigt. \qedBox
+
+  % section aufgabe_31 (end)
+
+  \end{multicols}
+
+\end{document}

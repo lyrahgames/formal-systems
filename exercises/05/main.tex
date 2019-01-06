@@ -1,0 +1,519 @@
+\documentclass[9pt,fleqn,twoside,a4paper]{article}
+\usepackage{extsizes}
+\usepackage[a4paper,left=27mm,right=27mm,top=30mm,bottom=30mm]{geometry}
+\linespread{1.15}\selectfont
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{times}
+\usepackage[leqno]{amsmath,mathtools}
+\allowdisplaybreaks
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage[mathscr]{euscript}
+\usepackage{multicol}
+\usepackage[autostyle,german=guillemets]{csquotes}
+\usepackage{turnstile}
+
+\usepackage{fancyhdr}
+\fancypagestyle{titlestyle}{
+  \fancyhf{}
+  % \fancyfoot[C]{\footnotesize\bigskip\thepage/\pageref{LastPage}}
+  \fancyfoot[C]{\footnotesize\bigskip\thepage}
+  \renewcommand{\footrulewidth}{0.5pt}
+  \renewcommand{\headrulewidth}{0pt}
+}
+\fancypagestyle{mainstyle}{
+  \fancyhf{}
+  \fancyfoot[C]{\footnotesize\bigskip\thepage}
+  \fancyhead[LO,RE]{\footnotesize \leftmark \smallskip} %left
+  \fancyhead[RO,LE]{\footnotesize \rightmark \smallskip} %right
+  \renewcommand{\footrulewidth}{0.5pt}
+  \renewcommand{\headrulewidth}{0.5pt}
+}
+% \pagestyle{mainstyle}
+
+\usepackage{uniinput}
+\usepackage{utilities}
+
+\renewcommand{\separate}{\quad}
+\renewcommand{\implies}{\quad\Longrightarrow\quad}
+\renewcommand{\iff}{\quad\Longleftrightarrow\quad}
+\newcommand{\fregeProofable}{\sststile{\mathrm{Fre}}{}{}}
+\newcommand{\fregeAxiomI}{\mathrm{F1}}
+\newcommand{\fregeAxiomII}{\mathrm{F2}}
+\newcommand{\fregeAxiomIII}{\mathrm{F3}}
+\newcommand{\mendelsonProofable}{\sststile{\mathrm{Men}}{}{}}
+\newcommand{\mendelsonAxiomI}{\mathrm{M1}}
+\newcommand{\mendelsonAxiomII}{\mathrm{M2}}
+\newcommand{\mendelsonAxiomIII}{\mathrm{M3}}
+\newcommand{\modusPonens}{\mathrm{MP}}
+\newcommand{\fulfills}{\sdtstile{}{}{}}
+\newcommand{\infers}{\ddtstile{}{}{}}
+\newcommand{\qedBox}{\hfill\ensuremath{\square}}
+
+\begin{document}
+  \pagestyle{mainstyle}
+  \thispagestyle{titlestyle}
+  \hrule
+  \begin{center}
+    \huge
+    % \bfseries
+    \scshape
+    Logiksysteme \\ Übungsserie 5: Lösungen
+  \end{center}
+  \medskip
+  \footnotesize
+  \begin{minipage}[c]{0.49\textwidth}
+    Markus Pawellek \\
+    markuspawellek@gmail.com
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.49\textwidth}
+    \raggedleft
+    \today
+  \end{minipage}
+  \medskip
+  \normalsize
+  \hrule
+  \bigskip
+
+  \begin{multicols}{2}
+
+  \noindent
+  Im Folgenden seien α, β und γ drei beliebige Formeln.
+  Wir definieren zunächst die Axiome des Frege-Kalküls.
+  \begin{alignat*}{3}
+    &\fregeAxiomI(α,β)  &&\define\ α\to(β\to α) \\
+    &\fregeAxiomII(α,β,γ)  &&\define\
+    \begin{aligned}[t]
+      &(α\to(β\to γ)) \\
+      &\to ((α\to β)\to(α\to γ))
+    \end{aligned}\\
+    &\fregeAxiomIII(α)  &&\define\ \lnot\lnot α\to α
+  \end{alignat*}
+  Die einzige definierte Schlussregel im Frege-Kalkül ist \enquote{Modus Ponens} und wie folgt definiert.
+  \[
+    \modusPonens(α,α\to β) \define \frac{α\separate α\to β}{β}
+  \]
+  Aus der Vorlesung sind zudem einige weitere Frege-Theoreme bekannt, die sich vollkommen analog zu den bereits definierten Axiomen verhalten.
+  Für die aufgelisteten Frege-Beweise verwenden wir die im Folgenden definierten Theoreme.
+  \begin{alignat*}{3}
+    &\mathrm{ID}(α) &&\define\ α\to α \\
+    &\mathrm{XX}(α,β) &&\define\ (α\to β) \to ((\lnot α\to β)\to β) \\
+    &\mathrm{NN}(α) &&\define\ α\to\lnot\lnot α \\
+    &\mathrm{EFQL}(α) &&\define\ \perp\to α
+  \end{alignat*}
+  Zudem erweist es sich als ausgesprochen praktisch weitere Schlussregeln zu beweisen, die die eigentlichen Beweise verkürzen und zudem auch übersichtlicher und verständlicher gestalten.
+
+  \paragraph{Lemma:}
+  Im Frege-Kalkül gilt die folgende Schlussregel.
+  \[
+    \mathrm{TT}(α,β) \define \frac{α}{β\to α}
+  \]
+  Beweis:
+  \begin{align}
+    \tag{1}
+      & α
+      && \text{Hypothese} \\
+    \tag{2}
+      & α\to(β\to α)
+      && \fregeAxiomI(α,β) \\
+    \tag{3}
+      & β\to α
+      && \modusPonens((1),(2))
+  \end{align}
+  Damit ist die Aussage gezeigt. \qedBox
+
+  \paragraph{Lemma:}
+  Im Frege-Kalkül gilt die folgende Schlussregel.
+  \[
+    \mathrm{TRANS}(α\to β,β\to γ) \define \frac{α\to β \separate β\to γ}{α\to γ}
+  \]
+  Beweis:
+  \begin{align}
+    \tag{1}
+      & α\to β
+      && \text{Hypothese} \\
+    \tag{2}
+      & β \to γ
+      && \text{Hypothese} \\
+    \tag{3}
+      & α\to(β\to γ)
+      && \mathrm{TT}((2),α) \\
+    \tag{4}
+      &
+        \begin{aligned}[t]
+          &(α\to(β\to γ)) \\
+          &\to((α\to β)\to(α\to γ))
+        \end{aligned}
+      && \fregeAxiomII(α,β,γ) \\
+    \tag{5}
+      & (α\to β)\to(α\to γ)
+      && \modusPonens((3),(4)) \\
+    \tag{6}
+      & α\to γ
+      && \modusPonens((1),(5))
+  \end{align}
+  Damit ist die Aussage gezeigt. \qedBox
+
+  \section*{Aufgabe 19} % (fold)
+  \label{sec:aufgabe_19}
+
+    \paragraph{(a):} % (fold)
+      Es seien $\mathscr{S}$ eine Formelmenge und β und γ beliebige Formeln.
+      Es soll die folgende Aussage betrachtet werden.
+      \[
+        \mathscr{S}\fregeProofable γ \implies S\fregeProofable β\to γ
+      \]
+      Die Frege-Beweisbarkeit kann durch den folgenden direkten Beweis gezeigt werden.
+      \begin{align}
+        \tag{1}
+          & \mathscr{S}\fregeProofable γ
+          && \text{Hypothese} \\
+        \tag{2}
+          & \mathscr{S}\fregeProofable β\to γ
+          && \mathrm{TT}((1),β)
+      \end{align}
+    % paragraph paragraph_name (end)
+    \paragraph{(b):} % (fold)
+      Es seien $\mathscr{S}$ eine Formelmenge und β und γ beliebige Formeln.
+      Es soll die folgende Aussage betrachtet werden.
+      \[
+        \mathscr{S}\fregeProofable\lnot β \implies \mathscr{S}\fregeProofable β\to γ
+      \]
+      Die Frege-Beweisbarkeit kann durch den folgenden direkten Beweis gezeigt werden.
+      \begin{align}
+        \tag{1}
+          & \mathscr{S}\fregeProofable \lnot β
+          && \text{Hypothese} \\
+        \tag{2}
+          & \mathscr{S}\fregeProofable β\to\perp
+          && (1), \lnot β = β\to\perp \\
+        \tag{3}
+          & \mathscr{S}\fregeProofable \perp\to γ
+          && \mathrm{EFQL}(γ) \\
+        \tag{4}
+          & \mathscr{S}\fregeProofable β\to γ
+          && \mathrm{TRANS}((2),(3))
+      \end{align}
+    % paragraph paragraph_name (end)
+    \paragraph{(c):} % (fold)
+      Es seien $\mathscr{S}$ eine Formelmenge und β und γ beliebige Formeln.
+      Es soll die folgende Aussage betrachtet werden.
+      \[
+        \mathscr{S}\fregeProofableβ \quad \text{und}\quad \mathscr{S}\fregeProofable \lnot γ \implies \mathscr{S}\fregeProofable \lnot(β\to γ)
+      \]
+      Die Frege-Beweisbarkeit kann durch den folgenden direkten Beweis gezeigt werden.
+      \begin{align}
+        \tag{1}
+          & \mathscr{S}\fregeProofable β
+          && \text{Hypothese} \\
+        \tag{2}
+          & \mathscr{S}\fregeProofable \lnot γ
+          && \text{Hypothese} \\
+        \tag{3}
+          & \mathscr{S}\fregeProofable γ\to\perp
+          && (2),\lnot γ = γ\to\perp \\
+        \tag{4}
+          & \mathscr{S}\fregeProofable β\to(γ\to\perp)
+          && \mathrm{TT}((3),β) \\
+        \tag{5}
+          & \mathscr{S}\fregeProofable
+            \begin{aligned}[t]
+              &(β\to(γ\to\perp)) \\
+              &\to(
+                \begin{aligned}[t]
+                  &(β\toγ) \\
+                  &\to(β\to\perp))
+                \end{aligned}
+            \end{aligned}
+          && \fregeAxiomII(β,γ,\perp) \\
+        \tag{6}
+          & \mathscr{S}\fregeProofable (β\to γ)\to(β\to\perp)
+          && \modusPonens((4),(5)) \\
+        \tag{7}
+          & \mathscr{S}\fregeProofable β\to((β\to\perp)\to\perp)
+          && \mathrm{NN}(β) \\
+        \tag{8}
+          & \mathscr{S}\fregeProofable (β\to\perp)\to\perp
+          && \modusPonens((1),(7)) \\
+        \tag{9}
+          & \mathscr{S}\fregeProofable (β\to γ)\to\perp
+          && \mathrm{TRANS}((6),(8)) \\
+        \tag{10}
+          & \mathscr{S}\fregeProofable \lnot(β\to γ)
+          && (9)
+      \end{align}
+    % paragraph paragraph_name (end)
+    \paragraph{(d):} % (fold)
+      Seien nun α eine beliebige Formel und $\mathscr{A}$ eine beliebige Belegung.
+      Dann definieren wir $\mathscr{A}_α$ durch die folgende Menge.
+      \[
+        \mathscr{A}_α\define \mathscr{A}\cup\set{\lnot A_i}{A_i\not\in \mathscr{A} \text{ und $A_i$ kommt in α vor}}
+      \]
+      Durch die vollständige Induktion sollen die beiden folgenden Aussagen für beliebige Formeln α und beliebige Belegungen $\mathscr{A}$ gezeigt werden.
+      \[
+        \mathscr{A}\fulfills α \implies \mathscr{A}_α \fregeProofable α
+      \]
+      \[
+        \mathscr{A}\not\fulfills α \implies \mathscr{A}_α \fregeProofable \lnot α
+      \]
+      Bei $\set{\perp,\to}{}$ handelt es sich um eine adäquate Menge.
+      Es reicht also diese Menge von Verknüpfungszeichen in der eigentlichen Induktion zu behandeln.
+      \paragraph{Induktionsanfang:} % (fold)
+      \label{par:induktionsanfang_}
+        % Es sei α nun ein Atom oder Falsum.
+        Im Folgenden beschreibe α eine atomare Formel oder $\perp$.
+        \paragraph{Fall $α=\perp$:} % (fold)
+          Dann wissen wir, dass $\mathscr{A}\not\fulfills α$ gilt.
+          Es folgt damit unmittelbar aus dem Prinzip \enquote{ex falsum quod libet} die folgende Aussage, da es sich bei $\mathscr{A}\fulfills α$ um eine falsche Aussage handelt.
+          \[
+            \mathscr{A}\fulfills α \implies \mathscr{A}_α\fregeProofable α
+          \]
+          Aus dem folgenden direkten Frege-Beweis lässt sich nun die Aussage $\mathscr{A}_α\fregeProofable\lnot\perp$ schlussfolgern.
+          \begin{align}
+            \tag{1}
+              & \perp \to \perp
+              && \mathrm{ID}(\perp) \\
+            \tag{2}
+              & \lnot\perp
+              && (1)
+          \end{align}
+          Demzufolge muss dann aber auch das Folgende gelten.
+          \[
+            \mathscr{A}\not\fulfills α \implies \mathscr{A}_α \fregeProofable \lnot α
+          \]
+        % paragraph fall_ (end)
+        \paragraph{Fall $α=A_i$ für $i\in\setNatural$:} % (fold)
+          Die folgenden Implikationsketten zeigen die gewünschten Aussagen für atomare Formeln.
+          \begin{align*}
+            \mathscr{A}\fulfills α &\implies α\in\mathscr{A} \implies α\in\mathscr{A}_α \\
+            &\implies \mathscr{A}_α\fregeProofable α
+          \end{align*}
+          \begin{align*}
+            \mathscr{A}\not\fulfills α &\implies α\not\in\mathscr{A} \implies \lnot α \in \mathscr{A}_α \\
+            &\implies \mathscr{A}_α \fregeProofable \lnot α
+          \end{align*}
+        % paragraph fall_ (end)
+
+        Damit gelten die zu beweisenden Aussagen für alle atomare Formeln und $\perp.$
+      % paragraph induktionsanfang_ (end)
+      \paragraph{Induktionsvoraussetzung:} % (fold)
+      \label{par:induktionsvoraussetzung_}
+        Es seien α und β beliebige Formeln, für die die folgenden Aussagen gelten.
+        \begin{align*}
+          \mathscr{A}\fulfills α &\implies \mathscr{A}_α \fregeProofable α \\
+          \mathscr{A}\not\fulfills α &\implies \mathscr{A}_α \fregeProofable \lnot α \\
+          \mathscr{A}\fulfills β &\implies \mathscr{A}_β \fregeProofable β \\
+          \mathscr{A}\not\fulfills β &\implies \mathscr{A}_β \fregeProofable \lnot β \\
+        \end{align*}
+      % paragraph induktionsvoraussetzung_ (end)
+      \paragraph{Induktionsschluss:} % (fold)
+        Es seien φ und ϑ beliebige Formeln.
+        Dann muss nach Definition das Folgende gelten, da in der Formel $φ\to ϑ$ mindestens genauso viele atomare Formeln vorkommen müssen, wie in φ oder ϑ.
+        \begin{align*}
+          \mathscr{A}_φ\subset \mathscr{A}_{φ\to ϑ}
+          ,\qquad
+          \mathscr{A}_ϑ\subset\mathscr{A}_{φ\to ϑ}
+        \end{align*}
+        Werden zur Hypothesenmenge mehr Formeln hinzugefügt, so lassen sich auch mehr Formeln auf der Basis der Hypothesenmenge beweisen.
+        \begin{align*}
+          \mathscr{A}_φ \fregeProofable φ \implies \mathscr{A}_{φ\to ϑ} \fregeProofable φ \\
+          \mathscr{A}_ϑ \fregeProofable ϑ \implies \mathscr{A}_{φ\to ϑ} \fregeProofable ϑ
+        \end{align*}
+        Diese Aussagen verwenden wir nun für den eigentlichen Induktionsschluss.
+        Aufgrund der adäquaten Menge von Verknüpfungszeichen reicht es hier die Aussage $α\to β$ zu überprüfen.
+        Wir verwenden dabei, die in den Aufgabenteilen (a), (b) und (c) gezeigten Aussagen.
+        \begin{align*}
+          &\mathscr{A}\fulfills α\to β \\
+          &\iff \mathscr{A}\not\fulfills α \quad \text{oder} \quad \mathscr{A}\fulfills β \\
+          &\implies \mathscr{A}_α\fregeProofable \lnot α \quad \text{oder} \quad \mathscr{A}_β\fregeProofable β \\
+          &\implies \mathscr{A}_{α\toβ}\fregeProofable \lnot α \quad \text{oder} \quad \mathscr{A}_{α\toβ}\fregeProofable β \\
+          &\stackrel{\text{(a),(b)}}{\implies}
+            \begin{aligned}[t]
+              &\mathscr{A}_{α\to β} \fregeProofable α\to β \quad \text{oder} \\
+              &\mathscr{A}_{α\to β} \fregeProofable α\to β
+            \end{aligned} \\
+          &\implies \mathscr{A}_{α\to β} \fregeProofable α\to β
+        \end{align*}
+        \begin{align*}
+          &\mathscr{A}\not\fulfills α\to β \\
+          &\iff \mathscr{A} \fulfills α \quad \text{und} \quad \mathscr{A} \not\fulfills β \\
+          &\implies \mathscr{A}_α\fregeProofable α \quad \text{und} \quad \mathscr{A}_β\fregeProofable \lnot β \\
+          &\implies \mathscr{A}_{α\toβ}\fregeProofable α \quad \text{und} \quad \mathscr{A}_{α\toβ}\fregeProofable \lnot β \\
+          &\stackrel{(c)}{\implies} \mathscr{A}_{α\to β} \fregeProofable \lnot(α\to β)
+        \end{align*}
+      % paragraph induktionsschluss (end)
+
+      Damit sind die gewünschten Aussagen für beliebige Formeln α durch vollständige Induktion gezeigt worden. \qedBox
+    % paragraph  (end)
+
+  % section aufgabe_19 (end)
+
+  \section*{Aufgabe 21} % (fold)
+  \label{sec:aufgabe_21}
+
+    Im Folgenden seien α, β und γ drei beliebige Formeln.
+    Wir definieren zunächst die Axiome des Mendelson-Kalküls.
+    \begin{alignat*}{3}
+      &\mendelsonAxiomI(α,β)  &&\define\ α\to(β\to α) \\
+      & &&=\ \fregeAxiomI(α,β) \\
+      &\mendelsonAxiomII(α,β,γ)  &&\define\
+      \begin{aligned}[t]
+        &(α\to(β\to γ)) \\
+        &\to ((α\to β)\to(α\to γ))
+      \end{aligned}\\
+      & &&=\ \fregeAxiomII(α,β,γ) \\
+      &\mendelsonAxiomIII(α,β)  &&\define\ (\lnot β\to\lnot α)\to((\lnot β\to α)\to β)
+    \end{alignat*}
+    Die einzige definierte Schlussregel im Mendelson-Kalkül ist wieder \enquote{Modus Ponens}.
+    Auch die Bergriffe der Herleitung und der Beweisbarkeit im Mendelson-Kalkül können analog zum Frege-Kalkül definiert werden.
+    Wir schreiben $\mendelsonProofable φ$ für eine beliebige Mendelson-beweisbare Formel φ.
+
+    Da die ersten beiden Axiome des Mendelson-Kalküls gleich den ersten beiden Axiomen des Frege-Kalküls sind und beide Kalküle dieselbe Schlussregel verwenden, gelten das Theorem $\mathrm{ID}(α)$ und die Schlussregeln $\mathrm{TT}(α,β)$ und $\mathrm{TRANS}(α\to β,β\to γ)$ auch im Mendelson-Kalkül für beliebige Formeln α,β und γ, da ihn ihren Herleitungen nur die ersten beiden Axiome zusammen mit \enquote{Modus Ponens} verwendet werden.
+
+    Um nun die Korrektheit des Mendelson-Kalküls für beliebige Formeln φ zu beweisen, führen wir einen Induktionsbeweis über die Länge der Herleitung einer Formel im Mendelson-Kalkül.
+    \paragraph{Induktionsanfang:} % (fold)
+    \label{par:induktionsanfang}
+      Es sei nun φ eine Formel, die innerhalb des Mendelson-Kalküls durch einen einzigen Schritt hergeleitet werden kann.
+      Demzufolge muss es sich bei φ um ein Axiom des Mendelson-Kalküls handeln.
+      Im folgenden sein α, β und γ beliebige Formeln.
+
+      \paragraph{Fall $φ=\mendelsonAxiomI(α,β) = \fregeAxiomI(α,β)$} % (fold)
+        Durch den Vollständigkeitssatz des Frege-Kalküls wurde bereits gezeigt, dass das erste Axiom des Frege-Kalküls für beliebige α und β gültig ist.
+      % paragraph fall_ (end)
+      \paragraph{Fall $φ=\mendelsonAxiomII(α,β,γ) = \fregeAxiomII(α,β,γ)$} % (fold)
+        Durch den Vollständigkeitssatz des Frege-Kalküls wurde bereits gezeigt, dass das zweite Axiom des Frege-Kalküls für beliebige α, β und γ gültig ist.
+      % paragraph fall_ (end)
+      \paragraph{Fall $φ=\mendelsonAxiomIII(α,β)$} % (fold)
+        Für das dritte Axiom des Mendelson-Kalküls lässt sich die folgende Äquivalenzkette aufstellen.
+        \begin{align*}
+          φ &= (\lnot β\to\lnot α)\to((\lnot β\to α)\to β) \\
+          &\equiv \lnot(\lnot β\to\lnot α)\lor((\lnot β\to α)\to β) \\
+          &\equiv (\lnot β\land\lnot\lnot α)\lor(\lnot(\lnot β \to α)\lor β) \\
+          &\equiv (\lnot β\land α)\lor((\lnot β \land \lnot α)\lor β) \\
+          &\equiv ((\lnot β\land α)\lor(\lnot β\land\lnot α))\lor β \\
+          &\equiv (\lnot β \land (α\lor\lnot α))\lor β \\
+          &\equiv (\lnot β \land \top) \lor β
+          \equiv \lnot β \lor β
+          \equiv \top
+        \end{align*}
+        Da φ äquivalent zu $\top$ ist, muss es sich bei φ um eine gültige Formel handeln und demzufolge $\fulfills φ$ gelten.
+      % paragraph fall_ (end)
+
+      Da α, β und γ beliebig gewählt wurden, sind damit die Axiome des Mendelson-Kalküls gültig.
+      Als Folge ist damit auch jede Herleitung im Mendelson-Kalkül mit einem einzigen Schritt gültig.
+    % paragraph induktionsanfang (end)
+    \paragraph{Induktionsvoraussetzung:} % (fold)
+    \label{par:induktionsvoraussetzung_}
+      Es sei $n\in\setNatural$.
+      Jede Formel φ, welche eine Herleitung im Mendelson-Kalkül mit einer Länge kleiner gleich $n$ besitzt, ist gültig.
+    % paragraph induktionsvoraussetzung_ (end)
+    \paragraph{Induktionsschluss:} % (fold)
+    \label{par:induktionsschluss_}
+      Sei nun φ eine Formel, für welche eine Herleitung $(α_k)_\set{k\in\setNatural}{k\leq n+1}$ im Mendelson-Kalkül mit der Länge $n+1$ existiert.
+      \paragraph{Fall $α_{n+1}$ ist ein Axiom:} % (fold)
+        Handelt es sich bei $α_{n+1}$ um ein Axiom, so ist aus dem Induktionsanfang ersichtlich, dass es sich bei $φ=α_{n+1}$ auch um eine gültige Formel handeln muss.
+      % paragraph fall_ (end)
+      \paragraph{Fall $α_{n+1}$ ist kein Axiom:} % (fold)
+        Handelt es sich bei $α_{n+1}$ nicht um ein Axiom, so kann $φ=α_{n+1}$ nur aus der Schlussregel $\modusPonens(α_i,α_j)$ mit $i,j\in\setNatural$ und $i,j\leq n$ entstehen, wobei $α_j = α_i\to φ$ gilt.
+        Nach der Induktionsvoraussetzung handelt es sich bei $α_i$ und $α_j$ um gültige Formeln, da für sie Herleitungen im Mendelson-Kalkül der Länge $i$ beziehungsweise $j$ existieren.
+        Des Weiteren gilt nach einem bereits bewiesenen Satz das Folgende.
+        \[
+          \fulfills α_i \quad \text{und}\quad \fulfills α_i\toφ \implies \fulfills φ
+        \]
+        Es wurde damit gezeigt, dass es sich bei φ wieder um eine gültige Formel handelt.
+      % paragraph fall_ (end)
+    % paragraph induktionsschluss_ (end)
+
+    Die Induktion zeigt, dass jede Formel φ, für welche eine Herleitung im Mendelson-Kalkül existiert, auch gültig ist.
+    Das Mendelson-Kalkül ist damit korrekt.
+    \[
+      \mendelsonProofable φ \implies \fulfills φ
+    \]
+
+    Für die Vollständigkeit des Mendelson-Kalküls verwenden wir den Vollständigkeitssatz des Frege-Kalküls.
+    Dafür beweisen wir zunächst, dass jede Frege-beweisbare Formel φ auch Mendelson-beweisbar ist, indem wir eine Induktion über die Länge der Herleitung von φ im Frege-Kalkül durchführen.
+    \[
+      \fregeProofable φ \implies \mendelsonProofable φ
+    \]
+    \paragraph{Induktionsanfang:} % (fold)
+    \label{par:induktionsanfang_}
+      Handelt es sich bei φ um eine Formel, für die eine Herleitung im Frege-Kalkül mit einem einzigen Schritt existiert, so muss es sich bei φ um ein Axiom des Frege-Kalküls handeln.
+      Offensichtlich sind die ersten beiden Axiome des Frege-Kalküls Mendelson-beweisbar durch die ersten beiden Axiome des Mendelson-Kalküls, da diese gleich sind.
+      Im Folgenden sei α eine beliebige Formel.
+      Der noch zu betrachtende Fall lautet $φ=\fregeAxiomIII(α)$.
+      Die Mendelson-Beweisbarkeit von φ lässt sich in diesem Falle durch den folgenden direkten Beweis zeigen.
+      \begin{align}
+        \tag{1}
+          & \perp\to\perp
+          && \mathrm{ID}(\perp) \\
+        \tag{2}
+          & (α\to\perp)\to(\perp\to\perp)
+          && \mathrm{TT}((1),α\to\perp) \\
+        \tag{3}
+          &
+            \begin{aligned}[t]
+              &(\lnot α\to \lnot\perp) \\
+              &\to ((\lnot α\to\perp)\to α)
+            \end{aligned}
+          && \mendelsonAxiomIII(\perp,α) \\
+        \tag{4}
+          & \lnot α \to\lnot\perp
+          && (2)\quad
+            \begin{aligned}[c]
+              &\lnot α = α\to\perp \\
+              &\lnot\perp = \perp\to\perp
+            \end{aligned} \\
+        \tag{5}
+          & ((\lnot α\to\perp)\to α)
+          && \modusPonens((4),(3)) \\
+        \tag{6}
+          & \lnot\lnot α \to α
+          && (5), \lnot\lnot α = \lnotα\to\perp
+      \end{align}
+      Damit ist jede Frege-beweisbare Formel φ mit einer Herleitung im Frege-Kalkül der Länge Eins auch Mendelson-beweisbar.
+    % paragraph induktionsanfang_ (end)
+    \paragraph{Induktionsvoraussetzung:} % (fold)
+    \label{par:induktionsvoraussetzung}
+      Sei $n\in\setNatural$.
+      Jede Frege-beweisbare Formel φ mit einer Herleitung im Frege-Kalkül der Länge kleiner gleich $n$ ist auch Mendelson-beweisbar.
+    % paragraph induktionsvoraussetzung (end)
+    \paragraph{Induktionsschluss:} % (fold)
+    \label{par:induktionsschluss_}
+      Es sei nun φ eine Frege-beweisbare Formel mit Herleitung $(α_k)_\set{k\in\setNatural}{k\leq n+1}$ im Frege-Kalkül der Länge $n+1$.
+      \paragraph{Fall $α_{n+1}$ ist ein Axiom:} % (fold)
+        Handelt es sich bei $α_{n+1}$ um ein Axiom, so ist aus dem Induktionsanfang ersichtlich, dass es sich bei $φ=α_{n+1}$ auch um eine Mendelson-beweisbare Formel handeln muss.
+      % paragraph fall_ (end)
+      \paragraph{Fall $α_{n+1}$ ist kein Axiom:} % (fold)
+        Handelt es sich bei $α_{n+1}$ nicht um ein Axiom, so kann $φ=α_{n+1}$ nur aus der Schlussregel $\modusPonens(α_i,α_j)$ mit $i,j\in\setNatural$ und $i,j\leq n$ entstehen, wobei $α_j = α_i\to φ$ gilt.
+        Nach der Induktionsvoraussetzung handelt es sich bei $α_i$ und $α_j$ aber auch um Mendelson-beweisbare Formeln, da für sie Herleitungen im Frege-Kalkül der Länge $i$ beziehungsweise $j$ existieren.
+        Nach $\modusPonens(α_i,α_j)$ im Mendelson-Kalkül ist auch $φ$ Mendelson-beweisbar.
+        Es wurde damit gezeigt, dass es sich bei φ wieder um eine Mendelson-beweisbare Formel handelt.
+    % paragraph induktionsschluss_ (end)
+
+    Die Induktion zeigt, dass jede Frege-beweisbare Formel φ auch Mendelson-beweisbar ist.
+    \[
+      \fregeProofable φ \implies \mendelsonProofable φ
+    \]
+    Der Vollständigkeitssatz des Frege-Kalküls besagt das Folgende für beliebige Formeln φ.
+    \[
+      \fregeProofable φ \iff \fulfills φ
+    \]
+    Demzufolge ist jede gültige Formel φ auch Mendelson-beweisbar.
+    Damit ist das Mendelson-Kalkül vollständig.
+    \[
+      \fulfills φ \implies \mendelsonProofable φ
+    \]
+    Durch die Anwendung der zuvor gezeigten Korrektheit des Mendelson-Kalküls ist die folgende Aussage für beliebige Formeln φ ersichtlich.
+    \[
+      \fulfills φ \iff \mendelsonProofable φ
+    \]
+    Der Vollständigkeitssatz gilt demnach auch für das Mendelson-Kalkül. \qedBox
+
+  % section aufgabe_21 (end)
+
+  \end{multicols}
+
+\end{document}

@@ -1,0 +1,134 @@
+\documentclass[9pt,fleqn,twoside,a4paper]{article}
+\usepackage{extsizes}
+\usepackage[a4paper,left=27mm,right=27mm,top=30mm,bottom=30mm]{geometry}
+\linespread{1.15}\selectfont
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{times}
+\usepackage[leqno]{amsmath,mathtools}
+\allowdisplaybreaks
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage[mathscr]{euscript}
+\usepackage{multicol}
+\usepackage[autostyle,german=guillemets]{csquotes}
+\usepackage{turnstile}
+\usepackage{enumitem}
+
+\usepackage{fancyhdr}
+\fancypagestyle{titlestyle}{
+  \fancyhf{}
+  % \fancyfoot[C]{\footnotesize\bigskip\thepage/\pageref{LastPage}}
+  \fancyfoot[C]{\footnotesize\bigskip\thepage}
+  \renewcommand{\footrulewidth}{0.5pt}
+  \renewcommand{\headrulewidth}{0pt}
+}
+\fancypagestyle{mainstyle}{
+  \fancyhf{}
+  \fancyfoot[C]{\footnotesize\bigskip\thepage}
+  \fancyhead[LO,RE]{\footnotesize \leftmark \smallskip} %left
+  \fancyhead[RO,LE]{\footnotesize \rightmark \smallskip} %right
+  \renewcommand{\footrulewidth}{0.5pt}
+  \renewcommand{\headrulewidth}{0.5pt}
+}
+% \pagestyle{mainstyle}
+
+\usepackage{uniinput}
+\usepackage{utilities}
+
+\renewcommand{\separate}{\quad}
+\renewcommand{\implies}{\quad\Longrightarrow\quad}
+\renewcommand{\iff}{\quad\Longleftrightarrow\quad}
+\newcommand{\fregeProofable}{\sststile{\mathrm{Fre}}{}{}}
+\newcommand{\fregeAxiomI}{\mathrm{F1}}
+\newcommand{\fregeAxiomII}{\mathrm{F2}}
+\newcommand{\fregeAxiomIII}{\mathrm{F3}}
+\newcommand{\mendelsonProofable}{\sststile{\mathrm{Men}}{}{}}
+\newcommand{\mendelsonAxiomI}{\mathrm{M1}}
+\newcommand{\mendelsonAxiomII}{\mathrm{M2}}
+\newcommand{\mendelsonAxiomIII}{\mathrm{M3}}
+\newcommand{\modusPonens}{\mathrm{MP}}
+\newcommand{\fulfills}{\sdtstile{}{}{}}
+\newcommand{\infers}{\ddtstile{}{}{}}
+\newcommand{\qedBox}{\hfill\ensuremath{\square}}
+
+\begin{document}
+  \pagestyle{mainstyle}
+  \thispagestyle{titlestyle}
+  \hrule
+  \begin{center}
+    \huge
+    % \bfseries
+    \scshape
+    Logiksysteme \\ Übungsserie 9: Lösungen
+  \end{center}
+  \medskip
+  \footnotesize
+  \begin{minipage}[c]{0.49\textwidth}
+    Markus Pawellek \\
+    markuspawellek@gmail.com
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.49\textwidth}
+    \raggedleft
+    \today
+  \end{minipage}
+  \medskip
+  \normalsize
+  \hrule
+  \bigskip
+
+  \begin{multicols}{2}
+
+  \section*{Aufgabe 35} % (fold)
+  \label{sec:aufgabe_35}
+
+    Es seien $X\neq\emptyset$ eine nichtleere Menge und $R\subset X\times X$ eine binäre Relation auf $X$.
+    Wir wollen zeigen, dass die beiden folgenden Aussagen äquivalent sind.
+    \begin{enumerate}[label=\text{(\roman*)}]
+      \item{
+        \label{1}
+        $R$ ist reflexiv, transitiv und symmetrisch.
+      }
+      \item{
+        \label{2}
+        $R$ ist reflexiv und euklidisch.
+      }
+    \end{enumerate}
+    \paragraph{$\ref{1}\Rightarrow\ref{2}$:} % (fold)
+      Unter Annahme von \ref{1} wissen wir bereits, dass $R$ reflexiv ist.
+      Es reicht also zu zeigen, dass $R$ euklidisch ist.
+      Im Folgenden seien $x,y,z\in X$ beliebig gewählt.
+      \begin{align*}
+        &(x,y)\in R \quad\&\quad (x,z)\in R \\
+        &\stackrel{\mathclap{\text{(Symmetrie)}}}{\implies} (y,x)\in R \quad\&\quad (x,z)\in R \\
+        &\stackrel{\mathclap{\text{(Transitivität)}}}{\implies} (y,z)\in R
+      \end{align*}
+      Damit wurde gezeigt, dass $R$ reflexiv ist.
+    % paragraph 1rightarrow2 (end)
+    \paragraph{$\ref{2}\Rightarrow\ref{1}$:} % (fold)
+      Unter Annahme von \ref{1} wissen wir bereits, dass $R$ reflexiv ist.
+      Es reicht also zu zeigen, dass $R$ transitiv und symmetrisch ist.
+      Im Folgenden seien wieder $x,y,z\in X$ beliebig gewählt.
+      Wir wollen zuerst die Symmetrie zeigen.
+      \begin{align*}
+        &(x,y)\in R \\
+        &\stackrel{\mathclap{\text{(Reflexivität)}}}{\implies} (x,y)\in R \quad\&\quad (x,x)\in R \\
+        &\stackrel{\mathclap{\text{(Euklidizität)}}}{\implies} (y,x)\in R
+      \end{align*}
+      Durch Verwendung der Symmetrie lässt sich nun auch die Transitivität zeigen.
+      \begin{align*}
+        &(x,y)\in R \quad\&\quad (y,z)\in R \\
+        &\stackrel{\mathclap{\text{(Symmetrie)}}}{\implies} (y,x)\in R \quad\&\quad (y,z)\in R \\
+        &\stackrel{\mathclap{\text{(Euklidizität)}}}{\implies} (x,z)\in R
+      \end{align*}
+    % paragraph paragraph_name (end)
+
+    In allen Fällen waren die gewählten Variablen beliebig.
+    Demnach wurde die gewünschte Äquivalenz gezeigt. \qedBox
+  % section aufgabe_35 (end)
+
+  \end{multicols}
+
+\end{document}

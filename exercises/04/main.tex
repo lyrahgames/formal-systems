@@ -1,0 +1,510 @@
+\input{sty/pre}
+
+\title{Logiksysteme \\ Übungsserie 4: Lösungen}
+\author{Markus Pawellek}
+% \date{}
+\newcommand{\email}{markuspawellek@gmail.com}
+
+\usepackage{multicol}
+\usepackage{sty/uniinput}
+
+\newcommand{\separate}{\quad}
+
+\usepackage{turnstile}
+
+\newcommand{\fregeProof}{\sststile{\m{Fre}}{}{}}
+\newcommand{\fregeI}{\m{F1}}
+\newcommand{\fregeII}{\m{F2}}
+\newcommand{\fregeIII}{\m{F3}}
+\newcommand{\modusPonens}{\m{MP}}
+
+\newcommand{\fulfills}{\sdtstile{}{}{}}
+\newcommand{\infers}{\ddtstile{}{}{}}
+
+\begin{document}
+
+	\articletitle
+
+  \begin{multicols}{2}
+
+    \section*{Aufgabe 17} % (fold)
+    \label{sec:aufgabe_17}
+
+      Im Folgenden seien α, β und γ drei beliebige Formeln.
+      Wir definieren zunächst die Axiome des Frege-Kalküls.
+      \begin{alignat*}{3}
+        &\m{F1}(α,β)  &&\define\ α\to(β\to α) \\
+        &\m{F2}(α,β,γ)  &&\define\
+        \begin{aligned}[t]
+          &(α\to(β\to γ)) \\
+          &\to ((α\to β)\to(α\to γ))
+        \end{aligned}\\
+        &\m{F3}(α)  &&\define\ \lnot\lnot α\to α
+      \end{alignat*}
+      Die einzige definierte Schlussregel im Frege-Kalkül ist \enquote{Modus Ponens} und wie folgt definiert.
+      \[
+        \m{MP}(α,α\to β) \define \frac{α\separate α\to β}{β}
+      \]
+      Aus der Vorlesung sind zudem einige weitere Frege-Theoreme bekannt, die sich vollkommen analog zu den bereits definierten Axiomen verhalten.
+      Für die aufgelisteten Frege-Beweise verwenden wir die im Folgenden definierten Theoreme.
+      \begin{alignat*}{3}
+        &\m{ID}(α) &&\define\ α\to α \\
+        &\m{XX}(α,β) &&\define\ (α\to β) \to ((\lnot α\to β)\to β) \\
+        &\m{NN}(α) &&\define\ α\to\lnot\lnot α \\
+        &\m{EFQL}(α) &&\define\ \perp\to α
+      \end{alignat*}
+      Zudem erweist es sich als ausgesprochen praktisch weitere Schlussregeln zu beweisen, die die eigentlichen Beweise verkürzen und zudem auch übersichtlicher und verständlicher gestalten.
+
+      % \begin{alignat*}{3}
+      %   % &\m{MP}(α,α\to β) &&\define\ \frac{α\separate α\to β}{β} \\
+      %   &\m{TT}(α,β) &&\define\ \frac{α}{β\to α} \\
+      %   &\m{TRANS}(α\to β,β\to γ) &&\define\ \frac{α\to β \separate β\to γ}{α\to γ}
+      % \end{alignat*}
+      \paragraph{Lemma:}
+      Im Frege-Kalkül gilt die folgende Schlussregel.
+      \[
+        \m{TT}(α,β) \define \frac{α}{β\to α}
+      \]
+      Beweis:
+      \begin{align}
+        \tag{1}
+          & α
+          && \text{Hypothese} \\
+        \tag{2}
+          & α\to(β\to α)
+          && \fregeI(α,β) \\
+        \tag{3}
+          & β\to α
+          && \modusPonens((1),(2))
+      \end{align}
+      Damit ist die Aussage gezeigt. \qedbox
+
+      \paragraph{Lemma:}
+      Im Frege-Kalkül gilt die folgende Schlussregel.
+      \[
+        \m{TRANS}(α\to β,β\to γ) \define \frac{α\to β \separate β\to γ}{α\to γ}
+      \]
+      Beweis:
+      \begin{align}
+        \tag{1}
+          & α\to β
+          && \text{Hypothese} \\
+        \tag{2}
+          & β \to γ
+          && \text{Hypothese} \\
+        \tag{3}
+          & α\to(β\to γ)
+          && \m{TT}((2),α) \\
+        \tag{4}
+          &
+            \begin{aligned}[t]
+              &(α\to(β\to γ)) \\
+              &\to((α\to β)\to(α\to γ))
+            \end{aligned}
+          && \fregeII(α,β,γ) \\
+        \tag{5}
+          & (α\to β)\to(α\to γ)
+          && \modusPonens((3),(4)) \\
+        \tag{6}
+          & α\to γ
+          && \modusPonens((1),(5))
+      \end{align}
+      Damit ist die Aussage gezeigt. \qedbox
+
+      \paragraph{(1):}
+      Die Frege-Beweisbarkeit der gegebenen Formel können wir durch den folgenden direkten Beweis zeigen.
+      \begin{align}
+        &\tag{1}B\to(A\to B) & &\fregeI(B,A) \label{f11}\\
+        &\tag{2}
+        \begin{aligned}[t]
+          &(B\to(A\to B)) \\
+          &\to(A\to(B\to(A\to B))) \\
+        \end{aligned}
+        & &\fregeI((\ref{f11}),A) \label{f12}\\
+        &\tag{3}
+        A\to(B\to(A\to B)) & &\modusPonens((\ref{f11}),(\ref{f12}))
+      \end{align}
+      Es gilt damit $\fregeProof A\to(B\to(A\to B))$. \qedbox
+
+      \paragraph{(2):}
+      Die Frege-Beweisbarkeit der gegebenen Formel können wir durch den folgenden direkten Beweis zeigen.
+      \begin{align}
+        \tag{1}
+          &A\to(B\to A)
+          && \fregeI(A,B) \\
+        \tag{2}
+          &(B\to A) \to (B\to(B\to A))
+          && \fregeI(B\to A,B) \\
+        \tag{3}
+          & A\to(B\to(B\to A))
+          && \m{TRANS}((1),(2))
+      \end{align}
+      Es gilt damit $\fregeProof A\to(B\to(B\to A))$. \qedbox
+      % \begin{align}
+      %   &\tag{1} \label{2-1}
+      %     A\to(B\to A) && \fregeI(A,B) \\
+      %   &\tag{2} \label{2-2}
+      %     \begin{aligned}[t]
+      %       &(B\to A) \\
+      %       &\to(B\to(B\to A))
+      %     \end{aligned}
+      %     && \fregeI(B\to A,B) \\
+      %   &\tag{3} \label{2-3}
+      %     \begin{aligned}[t]
+      %       &
+      %         ((B\to A)\to(B\to(B\to A))) \\
+      %       &\to( A \to (
+      %         \begin{aligned}[t]
+      %           &(B\to A) \\
+      %           &\to(B\to(B\to A))))
+      %         \end{aligned}
+      %     \end{aligned}
+      %     && \fregeI((\ref{2-2}),A)\\
+      %   &\tag{4} \label{2-4}
+      %     A\to (
+      %     \begin{aligned}[t]
+      %       &(B\to A) \\
+      %       &\to(B\to(B\to A)))
+      %     \end{aligned}
+      %     && \modusPonens((\ref{2-2}),(\ref{2-3})) \\
+      %   \intertext{Verwende nun $\fregeII(A,B\to A, B\to(B\to A))$.}
+      %   &\tag{5} \label{2-5}
+      %     \begin{aligned}[t]
+      %       &(A \to (
+      %         \begin{aligned}[t]
+      %           &(B\to A) \\
+      %           &\to(B\to(B\to A))))
+      %         \end{aligned}\\
+      %       &\to
+      %       \begin{aligned}[t]
+      %         (&(A\to(B\to A)) \\
+      %         &\to (A\to (B\to(B\to A))))
+      %       \end{aligned}
+      %     \end{aligned}
+      %     && \fregeII(\ldots)\\
+      %   &\tag{6} \label{2-6}
+      %     \begin{aligned}[t]
+      %       &(A\to(B\to A)) \\
+      %       &\to (A\to (B\to(B\to A)))
+      %     \end{aligned}
+      %     && \modusPonens((\ref{2-4}),(\ref{2-5})) \\
+      %   &\tag{7} \label{2-7}
+      %     A\to (B\to(B\to A))
+      %     && \modusPonens((\ref{2-1}),(\ref{2-6}))
+      % \end{align}
+
+      \paragraph{(3):}
+      Die Frege-Beweisbarkeit der gegebenen Formel können wir durch den folgenden direkten Beweis zeigen.
+      \begin{align}
+        &\tag{1}
+          A\to A
+          && \m{ID}(A)\\
+        &\tag{2}
+          (A\to A)\to((\lnot A\to A)\to A)
+          && \m{XX}(A,A) \\
+        &\tag{3}
+          (\lnot A\to A)\to A
+          && \modusPonens((1),(2))
+      \end{align}
+      Es gilt damit $\fregeProof (\lnot A\to A)\to A$. \qedbox
+
+      \paragraph{(4):}
+      Die Frege-Beweisbarkeit der gegebenen Formel können wir durch den folgenden direkten Beweis zeigen.
+      \begin{align}
+        \tag{1}
+          &α\to\lnot\lnot α
+          && \m{NN}(α) \\
+        \tag{2}
+          &α\to ((α\to\perp)\to\perp)
+          && (1),\lnot α=α\to\perp\\
+        \tag{3}
+          &\begin{aligned}[t]
+            &(α\to((α\to\perp)\to \perp)) \\
+            &\to (
+              \begin{aligned}[t]
+                &(α\to(α\to\perp)) \\
+                &\to(α\to\perp))
+              \end{aligned}
+          \end{aligned}
+          && \fregeII(α,α\to\perp,\perp) \\
+        \tag{4}
+          &(α\to(α\to\perp))\to(α\to\perp)
+          && \modusPonens((2),(3)) \\
+        \tag{5}
+          &=(α\to\lnotα)\to\lnot α
+          && (4),\lnot α=α\to\perp
+      \end{align}
+      Es gilt damit $\fregeProof (α\to\lnot α)\to\lnot α$. \qedbox
+
+      \paragraph{(5):}
+      Die Frege-Beweisbarkeit der gegebenen Formel können wir durch den folgenden direkten Beweis zeigen.
+      \begin{align}
+        \tag{1}
+          &\perp \to β
+          && \m{EFQL}(β)\\
+        \tag{2}
+          &(α\to\perp)\to(\perp\to β)
+          && \m{TT}((1),α\to\perp)\\
+        &\tag{3}
+          \begin{aligned}[t]
+            &((α\to\perp)\to(\perp\to β)) \\
+            &\to(
+              \begin{aligned}[t]
+                &((α\to\perp)\to \perp) \\
+                &\to ((α\to\perp)\to β))
+              \end{aligned}
+          \end{aligned}
+          && \fregeII(α\to\perp,\perp,β) \\
+        \tag{4}
+          &
+            \begin{aligned}[t]
+              &((α\to\perp)\to \perp) \\
+              &\to ((α\to\perp)\to β)
+            \end{aligned}
+          && \modusPonens((2),(3))\\
+        \tag{5}
+          &α\to\lnot\lnot α
+          && \m{NN}(α)\\
+        &\tag{6}
+          α\to((α\to\perp)\to\perp)
+          && (5),\lnot α=α\to\perp \\
+        &\tag{7}
+          α\to((α\to\perp)\to β)
+          && \m{TRANS}((6),(4)) \\
+        \tag{8}
+          &α\to(\lnot α\to β)
+          && (7),\lnot α=α\to\perp
+      \end{align}
+      Es gilt damit $\fregeProof α\to(\lnot α\to β)$. \qedbox
+      % \begin{align}
+      %   &\tag{1}
+      %     \perp \to β
+      %     && \m{EFQL}(β)\\
+      %   &\tag{2}
+      %     (α\to\perp)\to(\perp\to β)
+      %     && \m{TT}((1),α\to\perp)\\
+      %   &\tag{3}
+      %     \begin{aligned}[t]
+      %       &((α\to\perp)\to(\perp\to β)) \\
+      %       &\to(
+      %         \begin{aligned}[t]
+      %           &((α\to\perp)\to \perp) \\
+      %           &\to ((α\to\perp)\to β))
+      %         \end{aligned}
+      %     \end{aligned}
+      %     && \fregeII(α\to\perp,\perp,β) \\
+      %   \tag{4}
+      %     &
+      %       \begin{aligned}[t]
+      %         &((α\to\perp)\to \perp) \\
+      %         &\to ((α\to\perp)\to β)
+      %       \end{aligned}
+      %     && \modusPonens((2),(3))\\
+      %   % &=\lnot\lnot α \to (\lnot α \to β) \\
+      %   &\tag{5}
+      %     α\to(
+      %     \begin{aligned}[t]
+      %       &((α\to\perp)\to \perp) \\
+      %       &\to ((α\to\perp)\to β))
+      %     \end{aligned}
+      %     && \m{TT}((4),α)\\
+      %   % &=α \to (\lnot\lnot α \to (\lnot α \to β)) \\
+      %   &\tag{6}
+      %     \begin{aligned}[t]
+      %       &(α\to (
+      %         \begin{aligned}[t]
+      %           &((α\to\perp)\to \perp) \\
+      %           &\to ((α\to\perp)\to β)))
+      %         \end{aligned} \\
+      %       &\to (
+      %         \begin{aligned}[t]
+      %           &(α\to((α\to\perp)\to\perp)) \\
+      %           &\to (α\to((α\to\perp)\to β)))
+      %         \end{aligned} \\
+      %     \end{aligned}
+      %     && \fregeII(α,\lnot\lnot α, \lnot α\to β)\\
+      %   % &=
+      %   % \begin{aligned}[t]
+      %   %   &(α\to(\lnot\lnot α \to (\lnot α\to β))) \\
+      %   %   &\to ((α\to\lnot\lnot α) \to (α\to(\lnot α\to β)))
+      %   % \end{aligned}\\
+      %   &\tag{7}
+      %     α\to((α\to\perp)\to\perp)
+      %     && \m{NN}(α) \\
+      %   &\tag{8}
+      %     \begin{aligned}[t]
+      %       &(α\to((α\to\perp)\to\perp)) \\
+      %       &\to (α\to((α\to\perp)\to β))
+      %     \end{aligned}
+      %     && \modusPonens((5),(6))\\
+      %   &\tag{9}
+      %     α\to((α\to\perp)\to β)
+      %     && \modusPonens((7),(8))
+      %   % &= (α\to\lnot\lnot α) \to (α\to(\lnot α\to β)) \\
+      %   % &α\to(\lnot α\to β)
+      % \end{align}
+
+      \paragraph{(6):}
+      Es sei $Γ\define \set{A\to(B\to C), A\to B}$ eine Menge von Hypothesen.
+      In diesem Falle kann der folgende Beweis notiert werden.
+      \begin{align}
+        &\tag{1}
+          A\to(B\to C)
+          && \in Γ \\
+        &\tag{2}
+          A\to B
+          && \in Γ \\
+        &\tag{3}
+          \begin{aligned}[t]
+            &(A\to(B\to C)) \\
+            &\to((A\to B)\to(A\to C))
+          \end{aligned}
+          && \fregeII(A,B,C) \\
+        &\tag{4}
+          (A\to B)\to(A\to C)
+          && \modusPonens((1),(3)) \\
+        &\tag{5}
+          A\to C
+          && \modusPonens((2),(4))
+      \end{align}
+      Es gilt damit $Γ \fregeProof A\to C$. \qedbox
+
+      % \begin{align}
+      %   \tag{1}
+      %     A\to(B\to C),A\to B &\fregeProof A\to C \\
+      %   \tag{2}
+      %     A\to(B\to C) &\fregeProof (A\to B)\to(A\to C)
+      %     && \m{DT}((1)) \\
+      %   \tag{3}
+      %     &\fregeProof (A\to(B\to C)) \to ((A\to B)\to(A\to C))
+      %     && \m{DT}((2))
+      % \end{align}
+
+      \paragraph{(7):}
+      Für die gegebene Formel eignet sich die Anwendung des Deduktionstheorems (\m{DT}).
+      Im Folgenden soll also allgemeiner die Beweisbarkeit der Formel betrachtet werden.
+      Der Übersicht halber definieren wir zunächst eine Menge von Hypothesen $Γ\define \set{α\to(β\toγ)}$.
+
+      \small
+      \begin{align}
+        \tag{1}
+          &\fregeProof β\to(α\to β)
+          && \fregeI(β,α) \\
+        \tag{2}
+          &\fregeProof
+            \begin{aligned}[t]
+              &(α\to(β\to γ)) \\
+              &\to ((α\to β)\to(α\to γ))
+            \end{aligned}
+          && \fregeII(α,β,γ) \\
+        \tag{3}
+          Γ &\fregeProof (α\to β)\to(α\to γ)
+          && \m{DT}((2)) \\
+        \tag{4}
+          Γ &\fregeProof β\to(α\to γ)
+          && \m{TRANS}((1),(3)) \\
+        \tag{5}
+          &\fregeProof
+            \begin{aligned}[t]
+              &(α\to(β\to γ)) \\
+              &\to (β\to(α\to γ))
+            \end{aligned}
+          && \m{DT}((4))
+      \end{align}
+      \normalsize
+      Formel (5) ist damit Frege-beweisbar.  \qedbox
+
+      \paragraph{(8):}
+      Die Frege-Beweisbarkeit der gegebenen Formel können wir durch den folgenden direkten Beweis zeigen.
+
+      \small
+      \begin{align}
+        \tag{1}
+          &α\to\lnot\lnot α
+          && \m{NN}(α)\\
+        \tag{2}
+          &β\to(α\to\lnot\lnot α)
+          && \m{TT}((1),β) \\
+        \tag{3}
+          &
+            \begin{aligned}[t]
+              &(β\to(α\to\lnot\lnot α)) \\
+              &\to((β\to α)\to(β\to\lnot\lnot α))
+            \end{aligned}
+          && \fregeII(β,α,\lnot\lnot α) \\
+        \tag{4}
+          &(β\to α)\to(β\to\lnot\lnot α)
+          && \modusPonens((2),(3)) \\
+        \tag{5}
+          &
+            \begin{aligned}[t]
+              &(β\to(\lnot α\to \perp)) \\
+              &\to ((β\to\lnot α)\to(β\to\perp))
+            \end{aligned}
+          && \fregeII(β,\lnot α,\perp) \\
+        \tag{6}
+          &(β\to \lnot\lnot α) \to ((β\to\lnot α)\to \lnot β)
+          &&
+            \begin{aligned}
+              \lnot α=α\to\perp \\
+              \lnot β=β\to\perp
+            \end{aligned} \\
+        \tag{7}
+          &(β\to α)\to((β\to\lnot α)\to \lnot β)
+          && \m{TRANS}((4),(6))
+      \end{align}
+      \normalsize
+      Formel (7) ist damit Frege-beweisbar.  \qedbox
+
+    % section aufgabe_17 (end)
+    % \end{multicols}
+    \newpage
+    % \begin{multicols}{2}
+
+
+    \section*{Aufgabe 18} % (fold)
+    \label{sec:aufgabe_18}
+
+      \normalsize
+      Es seien Γ eine Menge von Formeln, α und β beliebige Formeln, $Γ\infers α$ und $Γ\infers α\to β$.
+      Dann gilt nach Definition für alle Belegungen \e{B} das Folgende.
+      \[
+        \e{B}\fulfills Γ \implies \e{B}\fulfills α
+      \]
+      \[
+        \e{B}\fulfills Γ \implies \e{B}\fulfills α\to β
+      \]
+      Es sei nun \e{B} eine beliebige Belegung mit $\e{B}\fulfills Γ$.
+      Dann gilt automatisch $\e{B}\fulfills α$ und $\e{B}\fulfills α\to β$.
+      Um nun zu zeigen, dass auch $\e{B}\fulfills β$ wahr ist, kann die folgende Äquivalenzkette verwendet werden.
+      \begin{align*}
+        α\land(α\to β) &\equiv α\land(\lnot α\lor β) \\
+        &\equiv (α\land\lnot α)\lor(α\land β) \\
+        &\equiv α\land β
+      \end{align*}
+      Dieses Resultat verwenden wir nun wie folgt.
+      \begin{align*}
+        &\e{B}\fulfills α \quad \text{und} \quad \e{B}\fulfills α\to β \\
+        &\iff \e{B}\fulfills α\land (α\to β) \\
+        &\iff \e{B}\fulfills α\land β \\
+        &\iff \e{B}\fulfills α \quad \text{und} \quad \e{B}\fulfills β
+      \end{align*}
+      Da die erste Aussage dieser Äquivalenzkette als wahr gegeben ist, muss demnach auch die letzte Aussage wahr sein.
+      Es muss also $\e{B}\fulfills β$ gelten.
+      Da \e{B} beliebig gewählt wurde, schließen wir für alle Belegungen $\e{B}$ das Folgende.
+      \[
+        \e{B}\fulfills Γ \implies \e{B}\fulfills β
+      \]
+      Nach Definition ist damit $Γ \infers β$ erfüllt.
+      Dieser Beweis wurde unter den Bedingungen $Γ\infers α$ und $Γ\infers α\to β$ ausgeführt.
+      Im Allgemeinen gilt demzufolge die gewünschte Aussage.
+      \[
+        Γ\infers α \quad \text{und} \quad Γ\infers α\to β \implies Γ\infers β
+      \]
+      Die Aussage wurde damit bewiesen.\qedbox
+
+    % section aufgabe_18 (end)
+
+  \end{multicols}
+
+\end{document}

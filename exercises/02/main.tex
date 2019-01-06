@@ -1,0 +1,337 @@
+\input{sty/pre}
+
+\title{Logiksysteme: Übungsserie 2\\Lösungen}
+\author{Markus Pawellek \\ markuspawellek@gmail.com}
+% \date{}
+\newcommand{\email}{\today}
+
+% \usepackage[mathcal]{euscript}
+\usepackage{sty/uniinput}
+\usepackage{multicol}
+
+\setlength\parindent{0mm}
+
+\begin{document}
+
+	\articletitle
+  \bigskip
+\begin{multicols}{2}
+
+  \section*{Aufgabe 5}
+
+  \paragraph{(1)}
+    Es seien $\alpha$ und $\beta$ beliebige Formeln.
+    In diesem Falle soll die folgende Äquivalenz gezeigt werden.
+    \[
+      \lnot(\alpha\land\beta)\equiv\lnot\alpha\lor\lnot\beta
+    \]
+    Sie ist genau dann wahr, wenn man für alle Belegungen $\e{B}$ das Folgende zeigen kann.
+    \[
+      \e{B}\lmodel\lnot(\alpha\land\beta) \iff \e{B}\lmodel\lnot\alpha\lor\lnot\beta
+    \]
+    Es sei nun $\e{B}$ eine beliebige Belegung.
+    Es gilt das Folgende.
+    \[
+      \e{B}\lmodel \lnot(\alpha\land\beta)
+    \]
+    \[
+      \iff \e{B}\not\lmodel\alpha\land\beta
+    \]
+    \[
+      \iff \e{B}\not\lmodel\alpha \cor \e{B}\not\lmodel\beta
+    \]
+    \[
+      \iff \e{B}\lmodel\lnot\alpha \cor \e{B}\lmodel\lnot\beta
+    \]
+    \[
+      \iff \e{B}\lmodel \lnot\alpha \lor \lnot\beta
+    \]
+    Da $\e{B}$, α und β beliebig waren, ist damit die gewünschte Äquivalenz gezeigt.
+  \endproof
+
+  \paragraph{(2)}
+    Seien α und β beliebige Formeln.
+    In diesem Falle soll die folgende Äquivalenz gezeigt werden.
+    \[
+      \lnot(α\lor β) \equiv \lnot α \land \lnot β
+    \]
+    Sie ist genau dann wahr, wenn man für alle Belegungen $\e{B}$ das Folgende zeigen kann.
+    \[
+      \e{B}\lmodel\lnot(α\lor β) \iff \e{B}\lmodel \lnot α \land \lnot β
+    \]
+    Es sei nun $\e{B}$ eine beliebige Belegung.
+    Es gilt das Folgende.
+    \[
+      \e{B}\lmodel \lnot(α \lor β)
+    \]
+    \[
+      \iff \e{B}\not\lmodel α\lor β
+    \]
+    \[
+      \iff \e{B}\not\lmodel α \cand \e{B}\not\lmodel β
+    \]
+    \[
+      \iff \e{B}\lmodel\lnot α \cand \e{B}\lmodel\lnot β
+    \]
+    \[
+      \iff \e{B}\lmodel\lnot α \land \lnot β
+    \]
+    Da $\e{B}$, α und β beliebig waren, ist damit die gewünschte Äquivalenz gezeigt.
+  \endproof
+
+  \paragraph{(3)}
+    Es seien α und β beliebige Formeln und $\e{B}$ eine beliebige Belegung.
+    In diesem Falle gilt das Folgende.
+    \def\B{\e{B}}
+    \[
+      \B\lmodel α\to (β\to α)
+    \]
+    \[
+      \iff \B\not\lmodel α \cor \B\lmodel β\to α
+    \]
+    \[
+      \iff \B\not\lmodel α \cor (\B\not\lmodel β \cor \B\lmodel α)
+    \]
+    % \begin{description}
+      \textbf{Fall $α\in\B$:}{
+        \[
+          \iff \cfalse \cor (\B\not\lmodel β \cor \ctrue)
+        \]
+        \[
+          \iff \ctrue
+        \]
+      }
+      \textbf{Fall $α\not\in\B$:}{
+        \[
+          \iff \ctrue \cor (\B\not\lmodel β \cor \cfalse)
+        \]
+        \[
+          \iff \ctrue
+        \]
+      }%
+    % \end{description}
+    Damit gilt $\B\lmodel α\to(β\toα)$.
+    Da $\B$ beliebig gewählt wurde, muss demnach auch $\lmodel α\to(β\toα)$ gelten.
+  \endproof
+
+  \paragraph{(4)}
+    Es seien α, β und φ beliebige Formeln und \B{} eine beliebige Belegung. Dann gilt das Folgende.
+    \[
+      \B\lmodel (α\to(β\toφ))\to((α\toβ)\to(α\toφ))
+    \]
+    \[
+      \iff \B\not\lmodel α\to(β\toφ) \cor
+    \]
+    \[
+      \hphantom{\iff} \B\lmodel(α\toβ)\to(α\toφ)
+    \]
+    \[
+      \iff (\B\lmodel α \cand \B\not\lmodel β\toφ )\cor
+    \]
+    \[
+      \phantom{\iff} (\B \not\lmodel α\toβ \cor \B\lmodel α\toφ)
+    \]
+    \[
+      \iff (\B\lmodel α \cand (\B\lmodelβ \cand \B\not\lmodelφ))\cor
+    \]
+    \[
+      \phantom{\iff} ((\B\lmodelα\cand\B\not\lmodelβ)\cor(\B\not\lmodelα\cor\B\lmodelφ))
+    \]
+    % \begin{description}
+      \textbf{Fall $α\not\in\B$:}{
+        \[
+          \iff (\cfalse\cand(\B\lmodelβ\cand\B\not\lmodelφ))\cor
+        \]
+        \[
+          ((\cfalse\cand\B\not\lmodelβ)\cor(\ctrue\cor\B\lmodelφ))
+        \]
+        \[
+          \iff \cfalse \cor (\cfalse\cor\ctrue)
+        \]
+        \[
+          \ctrue
+        \]
+      }
+      \textbf{Fall $φ\in\B$:}{
+        \[
+          \iff (\B\lmodelα\cand(\B\lmodelβ\cand\cfalse))\cor
+        \]
+        \[
+          ((\B\lmodelα\cand\B\not\lmodelβ)\cor(\B\not\lmodelα\cor\ctrue))
+        \]
+        \[
+          \iff (\B\lmodelα\cand\cfalse) \cor
+        \]
+        \[
+          ((\B\lmodelα\cand\B\not\lmodelβ)\cor\ctrue)
+        \]
+        \[
+          \iff \cfalse\cor\ctrue
+        \]
+        \[
+          \iff \ctrue
+        \]
+      }
+      \textbf{Fall $α,β\in\B$ und $φ\not\in\B$:}{
+        \[
+          \iff (\ctrue\cand(\ctrue\cand\ctrue)\cor
+        \]
+        \[
+          ((\ctrue\cand\cfalse)\cor(\cfalse\cor\cfalse))
+        \]
+        \[
+          \iff \ctrue
+        \]
+      }
+      \textbf{Fall $α\in\B$ und $β,φ\not\in\B$:}{
+        \[
+          \iff (\ctrue\cand(\cfalse\cand\ctrue))\cor
+        \]
+        \[
+          ((\ctrue\cand\ctrue)\cor(\cfalse\cor\cfalse))
+        \]
+        \[
+          \iff (\ctrue\cand\cfalse)\cor
+        \]
+        \[
+          (\ctrue\cor\cfalse)
+        \]
+        \[
+          \iff \ctrue
+        \]
+      }%
+    % \end{description}
+    Da $\B$ beliebig gewählt wurde, gilt damit auch das Folgende.
+    \[
+      \lmodel(α\to(β\toφ))\to((α\toβ)\to(α\toφ))
+    \]
+    Die Aussage ist damit gezeigt.
+  \endproof
+
+  \paragraph{(5)}
+    Es sei α eine Formel und $\B$ eine beliebige Belegung.
+    In diesem Falle gilt das Folgende.
+    \[
+      \B\lmodel\lnot\lnotα\toα
+    \]
+    \[
+      \iff \B\not\lmodel\lnot\lnotα\cor\B\lmodelα
+    \]
+    \[
+      \iff \B\lmodel\lnotα\cor\B\lmodelα
+    \]
+    \[
+      \iff \B\not\lmodelα\cor\B\lmodelα
+    \]
+    \[
+      \iff \ctrue
+    \]
+    Da $\B$ beliebig gewählt wurde, gilt damit auch die Aussage $\lmodel\lnot\lnotα\toα$, die gezeigt werden sollte.
+  \endproof
+
+
+  \section*{Aufgabe 6}
+    Vor dem eigentlichen Beweis sollen zunächst ein paar Rechenregeln gezeigt werden.
+    Es seien α,β und φ beliebige Formeln und \B{} eine beliebige Belegung.
+    In diesem Falle gelten die folgenden Aussagen.
+    \[
+      \B\lmodel\lnot\falsum \iff \B\not\lmodel\falsum \iff \ctrue \iff \B\lmodel\verum
+    \]
+    \[
+      \B\lmodelφ \iff \B\lmodelφ \cand \ctrue
+    \]
+    \[
+      \iff \B\lmodelφ \cand \B\lmodel\verum \iff \B\lmodelφ\land\verum
+    \]
+    \[
+      \B\lmodel\lnot\lnotφ \iff \B\not\lmodel\lnotφ \iff \B\lmodelφ
+    \]
+    \[
+      \B\lmodelα\not\toβ \iff \B\lmodelα \cand \B\not\lmodelβ
+    \]
+    \[
+      \iff \B\lmodelα \cand \B\lmodel\lnotβ \iff \B\lmodelα\land\lnotβ
+    \]
+    Da die Formeln und die Belegung beliebig gewählt wurden, gelten damit auch die folgenden Äquivalenzen.
+    \[
+      α\not\toβ\equivα\land\lnotβ\separate φ\equiv\lnot\lnotφ
+    \]
+    \[
+      φ\equivφ\land\verum\separate \lnot\falsum\equiv\verum
+    \]
+    Diese Äquivalenzen werden nun in dem noch folgenden Induktionsbeweis verwendet.
+
+    \paragraph{Induktionsanfang:}
+    Für jede Formel φ, bei der es sich um $\verum$, $\falsum$ oder ein Atom handelt, muss gezeigt werden, dass es eine äquivalente Formel $φ'$ gibt, sodass $φ'$ nur aus Atomen, $\verum$ oder $\not\to$ besteht.
+
+    \textbf{Fall $φ=\verum$:}
+    Man verwendet für die folgende Definition, dass jede Formel zu sich selbst äquivalent ist.
+    \[
+      φ'\define \verum \equiv \verum = φ
+    \]
+    \textbf{Fall $φ=\falsum$:}
+    Man verwendet für diese Definition die zuvor gezeigten Äquivalenzen.
+    \[
+      \falsum \equiv \lnot\verum \equiv \verum\land\lnot\verum \equiv \verum\not\to\verum \definedby φ'
+    \]
+    \textbf{Fall $φ=A_i$ für $i\in\SN$:}
+    Auch hier kann wieder verwendet werden, dass jede Formel zu sich selbst äquivalent ist.
+    \[
+      φ'\define A_i \equiv A_i = φ
+    \]
+
+    In allen Fällen ist die definierte Formel $φ'$,  aufgrund der Transitivität von $\equiv$, äquivalent zu φ und enthält nur Atome, $\verum$ oder $\not\to$.
+    Der Induktionsanfang ist damit gezeigt.
+
+    \paragraph{Induktionsvoraussetzung:}
+    Es seien nun α und β Formeln, für die es äquivalente Formeln $α'$ und $β'$ gibt, sodass $α'$ und $β'$ nur aus Atomen, $\verum$ oder $\not\to$ bestehen.
+
+    \paragraph{Induktionsschluss:}
+    Zu zeigen ist nun, dass es auch für die Formeln $α\toβ$, $α\landβ$, $α\lorβ$ und $\lnotα$ äquivalente Formeln gibt, die nur aus Atomen, $\verum$ oder $\not\to$ bestehen.
+
+    \textbf{Fall $φ=\lnotα$:}
+    Man verwendet zunächst das Lemma aus der Vorlesung und benutzt dann die gezeigten Äquivalenzen.
+    \[
+      \lnotα \equiv \lnotα' \equiv \verum \land \lnotα' \equiv \verum\not\toα' \definedby φ'
+    \]
+    \textbf{Fall $φ=α\landβ$:}
+    Dieser Fall kann komplett analog zu dem vorherigen Fall behandelt werden.
+    \[
+      α\landβ \equiv α'\landβ' \equiv α'\land\lnot\lnotβ' \equiv α'\not\to\lnotβ'
+    \]
+    \[
+      \equiv α'\not\to(\verum\not\toβ') \definedby φ'
+    \]
+    \textbf{Fall $φ=α\lorβ$:}
+    Man verwendet zunächst das Lemma aus der Vorlesung und die De Morganschen Gesetze.
+    Danach lassen sich wieder die gezeigten Äquivalenzen anwenden.
+    \[
+      α\lorβ \equiv α'\lorβ' \equiv \lnot(\lnotα'\land\lnotβ') \equiv \lnot(\lnotα'\not\toβ')
+    \]
+    \[
+      \equiv \lnot((\verum\not\toα')\not\toβ')
+    \]
+    \[
+      \equiv \verum\not\to((\verum\not\toα')\not\toβ') \definedby φ'
+    \]
+    \textbf{Fall $φ=α\toβ$:}
+    Auch hier wurde ein analoges Vorgehen zu dem vorherigen Fall gewählt.
+    \[
+      α\toβ \equiv α'\toβ' \equiv \lnotα'\lorβ' \equiv \lnot(\lnot\lnotα'\land\lnotβ')
+    \]
+    \[
+      \equiv \lnot(α'\land\lnotβ') \equiv \lnot(α'\not\toβ')
+    \]
+    \[
+      \equiv \verum\not\to(α'\not\toβ') \definedby φ'
+    \]
+
+    In allen Fällen ist die Formel $φ'$, aufgrund der Transitivität von $\equiv$, äquivalent zu φ und enthält nur Atome, \verum oder $\not\to$.
+    Der Induktionsschluss ist damit gezeigt.
+    Demzufolge handelt es sich bei der Menge $\set{\verum,\not\to}$ um eine adäquate Menge von Verknüpfungszeichen.
+  \endproof
+
+
+\end{multicols}
+
+\end{document}

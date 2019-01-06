@@ -1,0 +1,458 @@
+\input{sty/pre}
+
+\title{Logiksysteme \\ Übungsserie 6}
+\author{Markus Pawellek}
+% \date{}
+\newcommand{\email}{markuspawellek@gmail.com}
+
+\usepackage{multicol}
+\usepackage{turnstile}
+\usepackage{sty/uniinput}
+
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+\usetikzlibrary{arrows.meta}
+%\usepackage {xcolor}
+\definecolor{processblue}{cmyk}{1,1,1,0}
+
+\begin{document}
+
+	\articletitle
+
+  \begin{multicols}{2}
+
+    \newcommand{\kripke}{\sdtstile{\m{K}}{}{}}
+    \newcommand{\lbox}{\Box}
+    \newcommand{\ldiamond}{\Diamond}
+    \newcommand{\ctrue}{\text{wahr}}
+
+    \newenvironment{graph}{
+      \begin{center}
+      \begin{tikzpicture}
+      [
+        -latex, auto,
+        node distance =0.1\textwidth and 0.1\textwidth,
+        on grid, semithick,
+        state/.style = {
+          circle,
+          top color = white,
+          bottom color = processblue!10,
+          draw,
+          processblue,
+          text=black,
+          minimum width = 0.7 cm,
+        },
+        >=Stealth
+      ]
+    }{
+      \end{tikzpicture}
+      \end{center}
+    }
+
+
+    \section*{Aufgabe 22} % (fold)
+    \label{sec:aufgabe_22}
+
+      \paragraph{(1):}
+      Für die Konstruktion eines erfüllenden Kripke-Modells, verwenden wir zunächst die folgende Äquivalenzkette.
+      \[
+        \begin{aligned}
+          &(A\land\lbox(A\to B)) \to \lbox B \\
+          &\quad\equiv \lnot(A\land\lbox(A\to B)) \lor \lbox B \\
+          &\quad\equiv (\lnot A \lor \ldiamond(A\land\lnot B)) \lor \lbox B
+        \end{aligned}
+      \]
+      Es folgt unmittelbar, dass es sich bei dem folgenden Kripke-Modell mit Startwelt $s$, um ein erfüllendes Modell handelt.
+      \begin{graph}
+        \node[state,label=$s$] (A) {};
+      \end{graph}
+      Für die Konstruktion eines nicht-erfüllenden Kripke-Modells, betrachten wir analog die negierte Aussage.
+      \[
+        \begin{aligned}
+          &\lnot((A\land\lbox(A\to B)) \to \lbox B) \\
+          &\quad\equiv (A\land\lbox(A\to B)) \land \lnot\lbox B \\
+          &\quad\equiv (A\land\lbox(\lnot A\lor B)) \land \ldiamond\lnot B
+        \end{aligned}
+      \]
+      Demzufolge erfüllt das folgende Modell mit Startwelt $s$ die negierte Formel, was wiederum äquivalent dazu ist, dass die ursprüngliche Formel von diesem Modell mit Startwelt $s$ nicht erfüllt wird.
+      \begin{graph}
+        \node[state,label=$s$] (A) {$A$};
+        \node[state] (B) [right=of A] {};
+        \path (A) edge node {} (B);
+      \end{graph}
+
+      \paragraph{(2):}
+      Zunächst vereinfachen wir wieder die gegebene Formel, um das erfüllende Modell zu konstruieren.
+      \[
+        \begin{aligned}
+          \Diamond A\to\Box A
+          \equiv \lnot\ldiamond A \lor \lbox A
+          \equiv \lbox\lnot A \lor \lbox A
+        \end{aligned}
+      \]
+      \begin{graph}
+        \node[state,label=$s$] (A) {};
+      \end{graph}
+      Jetzt betrachten wir die Negation, um das nicht-erfüllende Modell zu konstruieren.
+      \[
+        \begin{aligned}
+          \lnot(\ldiamond A \to \lbox A) \equiv \ldiamond A \land \ldiamond\lnot A
+        \end{aligned}
+      \]
+      \begin{graph}
+        \node[state,label=$s$] (A) {};
+        \node[state] (B) [right = of A] {$A$};
+        \path (A) edge [loop left] node [left] {} (A);
+        \path (A) edge [] node [] {} (B);
+      \end{graph}
+
+      \paragraph{(3):} % (fold)
+      Zunächst vereinfachen wir wieder die gegebene Formel, um das erfüllende Modell zu konstruieren.
+      \[
+        \ldiamond\lbox A \to \lbox\ldiamond A \equiv \lnot\ldiamond\lbox A \lor \lbox\ldiamond A
+      \]
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+      \end{graph}
+      Jetzt betrachten wir die Negation, um das nicht-erfüllende Modell zu konstruieren.
+      \[
+        \begin{aligned}
+          \lnot(\ldiamond\lbox A \to \lbox\ldiamond A) \equiv \ldiamond\lbox A \land \ldiamond\lbox\lnot A
+        \end{aligned}
+      \]
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+        \node[state] (A) [right = of S] {};
+        \node[state] (B) [right = of A] {$A$};
+        \path (S) edge [loop left] node {} (S);
+        \path (S) edge [] node {} (A);
+        \path (A) edge [] node {} (B);
+      \end{graph}
+
+      \paragraph{(4):}
+      Die gegebene Formel liegt bereits in einer vereinfachten Form vor.
+      Das erfüllende Modell kann also direkt abgelesen werden.
+      \[
+        \lbox\lbox A \land \ldiamond\ldiamond B
+      \]
+      % \begin{graph}
+      %   \node[state,label=$s$] (S) {};
+      %   \node[state] (A) [right = of S] {};
+      %   \node[state] (B) [right = of A] {$A,B$};
+      %   \path (S) edge [] node {} (A);
+      %   \path (A) edge [] node {} (B);
+      % \end{graph}
+      \begin{graph}
+        \node[state,label=$s$] (S) {$A,B$};
+        \node[state] (A) [right = of S] {};
+        \path (S) edge [bend left = 20] node {} (A);
+        \path (A) edge [bend left = 20] node {} (S);
+      \end{graph}
+      Jetzt betrachten wir die Negation, um das nicht-erfüllende Modell zu konstruieren.
+      \[
+        \lnot(\lbox\lbox A \land \ldiamond\ldiamond B) \equiv \ldiamond\ldiamond\lnot A \lor \lbox\lbox\lnot B
+      \]
+      % \begin{graph}
+      %   \node[state,label=$s$] (S) {};
+      %   \node[state] (A) [right = of S] {};
+      %   \node[state] (B) [right = of A] {$B$};
+      %   \path (S) edge [] node {} (A);
+      %   \path (A) edge [] node {} (B);
+      % \end{graph}
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+        \node[state] (A) [right = of S] {};
+        \path (S) edge [bend left = 20] node {} (A);
+        \path (A) edge [bend left = 20] node {} (S);
+      \end{graph}
+
+      \paragraph{(5):}
+      Zunächst vereinfachen wir wieder die gegebene Formel, um das erfüllende Modell zu konstruieren.
+      \[
+        \begin{aligned}
+          &(\ldiamond(A\to B)\land\ldiamond(B\to C)) \to \ldiamond(A\to C) \\
+          &\quad\equiv \lnot(\ldiamond(A\to B)\land\ldiamond(B\to C)) \lor \ldiamond(A\to C) \\
+          &\quad\equiv (\lbox(A\land\lnot B)\lor\lbox(B\land\lnot C)) \lor \ldiamond(\lnot A \lor C)
+        \end{aligned}
+      \]
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+        \node[state] (A) [right = of S] {$C$};
+        \path (S) edge [] node {} (A);
+      \end{graph}
+      Jetzt betrachten wir die Negation, um das nicht-erfüllende Modell zu konstruieren.
+      \[
+        \begin{aligned}
+          &\lnot((\ldiamond(A\to B)\land\ldiamond(B\to C)) \to \ldiamond(A\to C)) \\
+          &\equiv (\ldiamond(A\to B)\land\ldiamond(B\to C)) \land \lbox(A\land\lnot C)
+        \end{aligned}
+      \]
+      % \begin{graph}
+      %   \node[state,label=$s$] (S) {};
+      %   \node[state] (A) [right = of S] {$A,B$};
+      %   \node[state] (B) [below right = of S] {$A$};
+      %   \path (S) edge [] node {} (A);
+      %   \path (S) edge [] node {} (B);
+      % \end{graph}
+      \begin{graph}
+        \node[state,label=$s$] (S) {$A,B$};
+        \node[state] (B) [right = of S] {$A$};
+        \path (S) edge [loop left] node {} (S);
+        \path (S) edge [] node {} (B);
+      \end{graph}
+
+      \paragraph{(6):}
+      Die gegebene Formel liegt bereits in einer vereinfachten Form vor.
+      Das erfüllende Modell kann also direkt abgelesen werden.
+      \[
+        \ldiamond(A\land\lbox(\lnot A\land\ldiamond A))
+      \]
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+        \node[state] (A) [right = of S] {$A$};
+        \path (S) edge [] node {} (A);
+      \end{graph}
+      Jetzt betrachten wir die Negation, um das nicht-erfüllende Modell zu konstruieren.
+      \[
+        \begin{aligned}
+          &\lnot(\ldiamond(A\land\lbox(\lnot A\land\ldiamond A))) \\
+          &\quad\equiv \lbox(\lnot A \lor \ldiamond(A\lor \lbox\lnot A))
+        \end{aligned}
+      \]
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+      \end{graph}
+
+      \paragraph{(7):}
+      Zunächst vereinfachen wir wieder die gegebene Formel, um das erfüllende Modell zu konstruieren.
+      \[
+        \begin{aligned}
+          &(\ldiamond A \land \ldiamond B)\to \ldiamond(A\land B) \\
+          &\quad\equiv \lnot(\ldiamond A \land \ldiamond B) \lor \ldiamond(A\land B)
+        \end{aligned}
+      \]
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+        \node[state] (A) [right = of S] {$A,B$};
+        \path (S) edge [] node {} (A);
+      \end{graph}
+      Jetzt betrachten wir die Negation, um das nicht-erfüllende Modell zu konstruieren.
+      \[
+        \begin{aligned}
+          &\lnot((\ldiamond A \land \ldiamond B)\to \ldiamond(A\land B)) \\
+          &\quad\equiv (\ldiamond A \land \ldiamond B) \land \lbox(\lnot A \lor \lnot B)
+        \end{aligned}
+      \]
+      % \begin{graph}
+      %   \node[state,label=$s$] (S) {};
+      %   \node[state] (A) [right = of S] {$A$};
+      %   \node[state] (B) [below right = of S] {$B$};
+      %   \path (S) edge [] node {} (A);
+      %   \path (S) edge [] node {} (B);
+      % \end{graph}
+      \begin{graph}
+        \node[state,label=$s$] (S) {$B$};
+        \node[state] (A) [right = of S] {$A$};
+        \path (S) edge [] node {} (A);
+        \path (S) edge [loop left] node {} (S);
+      \end{graph}
+
+      \paragraph{(8):}
+      Zunächst vereinfachen wir wieder die gegebene Formel, um das erfüllende Modell zu konstruieren.
+      \[
+        \begin{aligned}
+          &(A\to\lbox A)\to(\lbox A \to \lbox\lbox A) \\
+          &\quad\equiv \lnot(A\to\lbox A) \lor (\lbox A \to \lbox\lbox A) \\
+          &\quad\equiv (A\land\ldiamond\lnot A) \lor (\ldiamond\lnot A \lor \lbox\lbox A)
+        \end{aligned}
+      \]
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+      \end{graph}
+      Jetzt betrachten wir die Negation, um das nicht-erfüllende Modell zu konstruieren.
+      \[
+        \begin{aligned}
+          &\lnot((A\to\lbox A)\to(\lbox A \to \lbox\lbox A)) \\
+          &\quad\equiv (\lnot A\lor\lbox A) \land (\lbox A \land \ldiamond\ldiamond\lnot A)
+        \end{aligned}
+      \]
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+        \node[state] (A) [right = of S] {$A$};
+        \node[state] (B) [right = of A] {};
+        \path (S) edge [] node {} (A);
+        \path (A) edge [] node {} (B);
+      \end{graph}
+
+      \paragraph{(9):}
+      Die gegebene Formel liegt bereits in einer vereinfachten Form vor.
+      Das erfüllende Modell kann also direkt abgelesen werden.
+      \[
+        \ldiamond A \land \ldiamond\lnot A \land \lbox(((A\land\lbox A)\lor(\lnot A\land \lbox\lnot A)) \land\ldiamond B\land \ldiamond\lnot B)
+      \]
+      % \begin{graph}
+      %   \node[state,label=$s$] (S) {};
+      %   \node[state] (A) [right = of S] {$A$};
+      %   \node[state] (B) [right = of A] {$A,B$};
+      %   \node[state] (C) [below = of S] {};
+      %   \node[state] (D) [right = of C] {B};
+      %   \path (S) edge [] node {} (A);
+      %   \path (A) edge [] node {} (B);
+      %   \path (S) edge [] node {} (C);
+      %   \path (C) edge [] node {} (D);
+      %   \path (A) edge [loop below] node {} (A);
+      %   \path (C) edge [loop left] node {} (C);
+      % \end{graph}
+      \begin{graph}
+        \node[state,label=$s$] (S) {$A,B$};
+        \node[state] (A) [right = of S] {$A$};
+        % \node[state] (B) [right = of A] {$A,B$};
+        \node[state] (C) [below = of S] {};
+        \node[state] (D) [right = of C] {B};
+        \path (S) edge [bend right] node {} (A);
+        \path (A) edge [bend right] node {} (S);
+        \path (S) edge [] node {} (C);
+        \path (C) edge [] node {} (D);
+        \path (A) edge [loop below] node {} (A);
+        \path (C) edge [loop left] node {} (C);
+      \end{graph}
+      Eine Betrachtung der Negation ist hier nicht nötig, da es für die Nichterfüllung ausreichend ist, ein Modell zu konstruieren, dessen Startwelt keine Nachfolger hat.
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+      \end{graph}
+
+    % section aufgabe_22 (end)
+
+    \section*{Aufgabe 23} % (fold)
+    \label{sec:aufgabe_23}
+
+      Eine beliebige modal-logische Formel φ ist nach Definition genau dann gültig, wenn für alle Kripke-Modelle \e{M} und alle Welten $w$ von $\e{M}$ gilt, dass $\e{M},w\kripke φ$.
+      Nach Definition gilt $φ\equiv\top$ genau dann, wenn für alle Kripke-Modelle \e{M} und alle Welten $w$ von \e{M} das Folgende gilt.
+      \[
+        \e{M},w\kripke φ \iff \e{M},w\kripke\top \stackrel{\text{def.}}{\iff} \ctrue
+      \]
+      Ist φ also gültig, so muss auch $φ\equiv\top$ gelten.
+      Gilt $φ\equiv\top$, muss φ wiederum gültig sein.
+      \[
+        φ \text{ ist gültig} \iff φ\equiv\top
+      \]
+      Für die Aufgaben reicht es demnach die Äquivalenz zu $\top$ zu beweisen.
+      Im Folgenden verwende ich vor allem die De Morganschen Gesetze, die aus dem Frege-Kalkül bekannten Äquivalenzen und die Äquivalenzen des Lemmas 6.6.
+
+      \paragraph{(1):} % (fold)
+      Die Gültigkeit der Formel kann mithilfe einer einfachen Äquivalenzkette gezeigt werden.
+      \begin{align*}
+        \Box(&A→B) → (\Diamond A→\Diamond B) \\
+        &\equiv ¬\Box(A\to B) \lor (\Diamond A \to \Diamond B) \\
+        &\equiv \Diamond(A\land \lnot B) \lor (\lnot\Diamond A \lor \Diamond B) \\
+        &\equiv \Diamond(A\land\lnot B) \lor (\lnot\Diamond A \lor \Diamond B) \\
+        &\equiv (\Diamond(A\land\lnot B) \lor \Diamond B) \lor \lnot\Diamond A \\
+        &\equiv \Diamond((A\land\lnot B)\lor B) \lor \lnot\Diamond A \\
+        &\equiv \Diamond((A\lor B) \land (\lnot B \lor B)) \lor \lnot\Diamond A \\
+        &\equiv \Diamond(A\lor B) \lor \lnot\Diamond A \\
+        &\equiv (\Diamond A \lor \Diamond B) \lor \lnot\Diamond A \\
+        &\equiv \Diamond B \lor (\Diamond A \lor \lnot\Diamond A) \equiv \Diamond B \lor \top \equiv \top
+      \end{align*}
+      Die Gültigkeit wurde damit gezeigt.\qedbox
+
+      \paragraph{(2):}
+      Der Einfachheit halber betrachten wir zunächst nur den ersten Teil der Formel.
+      \begin{align*}
+        \Box A&\land \Box(A\to B) \\
+        &\equiv \Box(A\land(A\to B)) \equiv \Box(A\land(\lnot A \lor B)) \\
+        &\equiv \Box(A\land B) \equiv \Box A \land \Box B
+      \end{align*}
+      Diese \enquote{Nebenrechnung} verwenden wir nun für die eigentliche Äquivalenzkette.
+      \begin{align*}
+        (\Box A&\land \Box(A\to B)) \to \Box B \\
+        &\equiv \lnot(\Box A\land \Box(A\to B)) \lor \Box B \\
+        &\equiv \lnot (\Box A \land \Box B) \lor \Box B \\
+        &\equiv (\lnot\Box A \lor \lnot\Box B) \lor \Box B \\
+        &\equiv \lnot\Box A \lor (\lnot\Box B \lor \Box B) \\
+        &\equiv \lnot\Box A \lor \top \equiv \top
+      \end{align*}
+      Die Gültigkeit der Formel wurde damit gezeigt.\qedbox
+
+      \paragraph{(3):}
+      Bei dieser Formel eignet es sich in einer hierarchischen Struktur vorzugehen und zunächst einfachere Subformeln zu betrachten.
+      \begin{align*}
+        A &\equiv A \land \top \equiv A \land (B\lor\lnot B) \\
+        &\equiv (A\land B) \lor (A\land\lnot B)
+      \end{align*}
+      Dieses Resultat soll nun verwendet werden, um eine alternative äquivalente Formel für die rechte Seite der gegebenen Formel zu bestimmen.
+      \[\begin{aligned}
+        \Diamond A &\equiv \Diamond((A\land B) \lor (A\land\lnot B)) \\
+        &\equiv \Diamond(A\land B) \lor \Diamond(A\land\lnot B)
+      \end{aligned}\]
+      \[\begin{aligned}
+        \Diamond B &\equiv \Diamond(A\land B) \lor \Diamond(\lnot A\land B)
+      \end{aligned}\]
+      \[\begin{aligned}
+        \Diamond A &\land \Diamond B \\
+        &\equiv
+        \begin{aligned}[t]
+          &(\Diamond(A\land B) \lor \Diamond(A\land\lnot B)) \\
+          &\land (\Diamond(A\land B) \lor \Diamond(\lnot A\land B))
+        \end{aligned} \\
+        &\equiv \Diamond(A\land B) \lor (\Diamond(A\land\lnot B)\land\Diamond(\lnot A\land B))
+      \end{aligned}\]
+      Durch die gezeigten Äquivalenzen lässt sich nun das Folgende notieren.
+      \begin{align*}
+        &\Diamond(A\land B)\to(\Diamond A\land \Diamond B) \\
+        &\equiv \lnot\Diamond(A\land B) \lor (\Diamond A\land\Diamond B) \\
+        &\equiv
+        \begin{aligned}[t]
+          &\lnot\Diamond(A\land B) \\
+          &\lor (\Diamond(A\land B) \lor (\Diamond(A\land\lnot B) \land\Diamond(\lnot A\land B)))
+        \end{aligned} \\
+        &\equiv
+        \begin{aligned}[t]
+          &(\lnot\Diamond(A\land B) \lor \Diamond(A\land B)) \\
+          &\lor(\Diamond(A\land\lnot B) \land\Diamond(\lnot A\land B))
+        \end{aligned} \\
+        &\equiv \top \lor (\Diamond(A\land\lnot B) \land\Diamond(\lnot A\land B)) \equiv \top
+      \end{align*}
+      Die Gültigkeit der Formel wurde damit gezeigt. \qedbox
+
+      \newcommand{\lequiv}{\leftrightarrow}
+
+      \paragraph{(4):}
+      Durch Verwendung der folgenden aus Lemma 6.6 bekannten Äquivalenz kann die Gültigkeit der Formel direkt gezeigt werden.
+      \[
+        \Diamond(A\to B) \equiv \Box A \to\Diamond B
+      \]
+      Wir verwenden zudem $φ\lequiv φ\equiv \top$ für alle modal-logischen Formeln φ.
+      Es folgt nun die folgende Kette.
+      \begin{align*}
+        &\Diamond(A\to B) \lequiv (\Box A \to \Diamond B) \\
+        &\equiv (\Box A \to \Diamond B) \lequiv (\Box A \to \Diamond B) \equiv \top
+      \end{align*}
+      Die Gültigkeit dieser Formel ist gezeigt. \qedbox
+
+    % section aufgabe_23 (end)
+
+    \section*{Aufgabe 24} % (fold)
+    \label{sec:aufgabe_24}
+
+      Es sei φ eine beliebige modal-logische Formel.
+      Dann ist nach Definition $\lbox\ldiamond φ$ genau dann nicht gültig, wenn es ein Kripke-Modell $\e{M}$ mit Startwelt $s$ gibt, sodass $\e{M},s\not\kripke \lbox\ldiamond φ$ gilt.
+      Dies ist aber gerade äquivalent dazu, dass es ein Kripke-Modell $\e{M}$ mit Startwelt $s$ gibt, sodass $\e{M},s\kripke\lnot\lbox\ldiamond φ$ gilt.
+      Wir wissen nun das Folgende.
+      \[
+        \lnot\lbox\ldiamond φ \equiv \ldiamond\lbox\lnot φ
+      \]
+      Damit erfüllt das folgende Modell, welches nicht von φ abhängt, mit Startwelt $s$ die Formel $\lnot\lbox\ldiamond φ$.
+      \begin{graph}
+        \node[state,label=$s$] (S) {};
+        \node[state] (A) [right = of S] {};
+        \path (S) edge [] node [] {} (A);
+      \end{graph}
+      Insbesondere gibt es also ein Kripke-Modell mit ausgewählter Startwelt, welches $\lnot\lbox\ldiamond φ$ erfüllt und damit $\lbox\ldiamond φ$ nicht erfüllt.
+      $\lbox\ldiamond φ$ ist demzufolge nicht gültig.
+      Da φ beliebig gewählt wurde, ist damit die Aussage gezeigt. \qedbox
+
+    % section aufgabe_24 (end)
+
+  \end{multicols}
+
+\end{document}
