@@ -1,0 +1,367 @@
+\documentclass[8pt,fleqn,a4paper,twoside]{article}
+\usepackage{extsizes}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[bottom=25mm,left=30mm,right=30mm,bottom=35mm]{geometry}
+\usepackage{times}
+% \linespread{1.15}
+\usepackage{multicol}
+\usepackage{titlesec}
+
+\titleformat*{\section}{\bfseries\normalsize}
+\titleformat*{\subsection}{\bfseries\normalsize}
+
+\usepackage{packages/utilities}
+\usepackage{packages/uniinput}
+
+\begin{document}
+  \hrule
+  \begin{center}
+    \Large \bfseries Logiksysteme: Gliederung
+  \end{center}
+  \bigskip
+  \footnotesize
+  \begin{minipage}[c]{0.49\textwidth}
+    Markus Pawellek \\
+    markuspawellek@gmail.com
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.49\textwidth}
+    \raggedleft
+    \today
+  \end{minipage}
+  \medskip
+  \normalsize
+  \hrule
+  \bigskip
+
+  \begin{multicols}{2}
+
+  \section{Aussagenlogik} % (fold)
+  \label{sec:aussagenlogik}
+
+    \subsection{Umgangssprachliche Aussagenlogik} % (fold)
+    \label{sub:umgangssprachliche_aussagenlogik}
+      \begin{itemize}
+        \item einführendes Beispiel
+        \item Definition umgangsprachliche Aussage
+        \item Verknüpfung umgangsprachlicher Aussagen durch Wahrheitstabellen
+        \item umgangsprachliche Negation
+        \item umgangsprachliche Konjunktion
+        \item umgangsprachliche Disjunktion
+        \item umgangsprachliche Implikation
+        \item umgangsprachliche Äquivalenz
+        \item Beispiel mit Wahrheitstabelle
+      \end{itemize}
+    % subsection umgangssprachliche_aussagenlogik (end)
+
+    \subsection{Formale Aussagenlogik} % (fold)
+    \label{sub:formale_aussagenlogik}
+      \begin{itemize}
+        \item Einführung
+        \item Definition aussagenlogische Formeln
+        \item Definition Belegung
+        \item Definition Erfüllungsrelation
+        \item Definition gültige Formel, erfüllbare Formel, unerfüllbare Formel, Tautologie, Kontradiktion
+        \item Definition semantische Folgerung
+        \item Lemma: Semantische Folgerung verallgemeinert Erfüllungsrelation
+        \item Lemma: Zusammenhang zwischen Erfüllungsrelation und Implikation
+        \item Definition: semantische Äquivalenz von Formeln
+        \item Lemma: $\lnot α\equiv α\to \perp$
+        \item Lemma: $α\lor β \equiv (α\to\perp)\to β$
+        \item Lemma: $α\land β \equiv (α\to(β\to\perp))\to\perp$
+        \item Lemma: äquivalente Ersetzung von Teilformeln
+        \item Definition: adäquate Menge von Verknüpfungszeichen
+        \item Lemma: $\set{\perp,\to}{}$ ist adäquat
+        \item Lemma: Adäquate Mengen von Verknüpfungszeichen
+        \item Bemerkung Beweis-Kalkül
+      \end{itemize}
+    % subsection formale_aussagenlogik (end)
+
+    \subsection{Tableau-Kalkül} % (fold)
+    \label{sub:tableau_kalkül}
+      \begin{itemize}
+        \item einführendes Beispiel mit Expansionsregeln
+        \item Definition: Tableau für Formeln aus Atomen $\perp,\top,\lnot,\land$
+        \item Systematischer Aufbau eines Tableau
+        \item Fast systematischer Aufbau eines Tableau
+        \item Definition: Eigenschaften von Pfaden und Tableau
+        \item Beispiele
+        \item Expansionsregeln für $\land,\lor,\lnot,\to$
+        \item Bemerkung: adäquate Mengen reichen für die Beweisbarkeit
+        \item Definition: Tableau für Formeln aus Atomen $\perp,\to$
+        \item Lemma: endliche Tableau reichen für Formeln
+        \item Definition: Tableau-beweisbar
+        \item deterministische und nichtdeterministische algorithmische Umsetzung des Tableau-Aufbaus mit Gültigkeitstest
+        \item Analyse des Tableau-Algorithmus
+      \end{itemize}
+    % subsection tableau_kalkül (end)
+
+    \subsection{Frege-Kalkül} % (fold)
+    \label{sub:frege_kalkül}
+      \begin{itemize}
+        \item Definition: Herleitung von Formeln im Frege-Kalkül
+        \item Beispiel
+        \item Definition: Frege-beweisbar
+        \item Lemma: $β\to β$ ist Frege-beweisbar
+        \item Lemma: Schlussregel Transitität
+        \item Lemma: $\perp$ Frege-beweist $α$
+        \item Satz: Deduktionstheorem
+        \item Lemma: Umkehrung drittes Axiom
+        \item Lemma: ex falso quod libet
+        \item Lemma: Doppelnegation
+        \item Lemma: ex falso quod libet (allgemeiner)
+        \item Lemma: Herleitungen ersetzen Hypothesen
+        \item Lemma: Verallgemeinerung der Transitivität
+        \item Lemma: Wichtige Theoreme des Frege-Kalküls
+        \item Ähnliche Kalküle
+      \end{itemize}
+    % subsection frege_kalkül (end)
+
+    \subsection{Vollständigkeitsätze der Kalküle} % (fold)
+    \label{sub:vollständigkeitsätze_der_kalküle}
+      \begin{itemize}
+        \item Bemerkung: Einteilung der Formeln in beweisbare und nicht-beweisbare Formeln. Testen der Gültigkeit beweisbarer Formeln. Korrektheit und Vollständigkeit
+        \item Bemerkung: Korrektheit des Frege-Kalküls
+        \item Lemma: Axiome des Frege-Kalküls sind gültig
+        \item Lemma: Korrektheit des Frege-Kalküls
+        \item Bemerkung: Vollständigkeit Tableau-Kalkül
+        \item Lemma: Pfad bestimmt Belegung, für die alle Formeln erfüllt sind
+        \item Lemma: Vollständigkeit des Tableau-Kalküls
+        \item Bemerkung: Umwandlung von Tableau-Beweisen in Frege-Beweise
+        \item Lemma: aus $\lnot(β\to γ)$ expandierte Formeln sind überflüssig
+        \item Lemma: aus $β\to γ$ expandierte Formeln sind überflüssig
+        \item Lemma: Frege-Herleitung von $\perp$ aus widersprüchlichen Tableau
+        \item Satz: Aus Tableau-Beweisen können Frege-Beweise gemacht werden.
+        \item Lemma: Vollständigkeitslemma des Frege-Kalküls
+        \item Satz: Vollständigkeitssatz des Frege-Kalküls
+        \item Lemma: Korrektheit des Tableau-Kalküls
+        \item Satz: Vollständigkeitssatz des Tableau-Kalküls
+        \item Bemerkung: Beweisabhängigkeiten
+      \end{itemize}
+    % subsection vollständigkeitsätze_der_kalküle (end)
+
+  % section aussagenlogik (end)
+
+  \section{Modale Aussagenlogik} % (fold)
+  \label{sec:modale_aussagenlogik}
+
+    \begin{itemize}
+      \item Einführendes Beispiel
+      \item Bemerkung: Bedeutung modale Aussagenlogik
+    \end{itemize}
+
+    \subsection{Grundbegriffe der modalen Aussagenlogik} % (fold)
+    \label{sub:grundbegriffe_der_modalen_aussagenlogik}
+      \begin{itemize}
+        \item Einführendes Beispiel
+        \item Definition: modallogische Formeln
+        \item Definition: Kripke-Modell
+        \item Definition: modallogische Erfüllungsrelation
+        \item Beispiele
+        \item Formelauswertung mit Dynamic Programming
+        \item Definition: gültige Formeln, erfüllbare Formeln
+        \item Beispiele
+        \item Bemerkung: Intuition erfüllbare Formeln
+        \item Konstruktion erfüllender Kripke-Modelle
+        \item Definition: äquivalente Formeln
+        \item Lemma: Wichtige Äquivalenzen
+        \item Lemma: adäquate Verknüpfungszeichen für Modallogik
+        \item Definition: Verallgemeinerung der modallogischen Erfüllungsrelation
+      \end{itemize}
+    % subsection grundbegriffe_der_modalen_aussagenlogik (end)
+
+    \subsection{Modallogisches Tableau-Kalkül} % (fold)
+    \label{sub:modallogisches_tableau_kalkül}
+      \begin{itemize}
+        \item Bemerkung
+        \item Definition: Tableau für modallogische Formeln aus Atomen $\perp,\to,\square$
+        \item Beispiel
+        \item Definition: Eigenschaften von Pfaden und Tableau
+        \item Lemma: endliche Tableau reichen
+        \item Definition: Tableau-beweisbar
+        \item Beispiel
+        \item Bemerkung: Beweis des Vollständigkeitslemmas
+        \item Lemma: Pfad bestimmt Modell
+        \item Lemma: Vollständigkeit des modalen Tableau-Kalküls
+      \end{itemize}
+    % subsection modallogisches_tableau_kalkül (end)
+
+    \subsection{Modallogisches Frege-Kalkül} % (fold)
+    \label{sub:modallogisches_frege_kalkül}
+      \begin{itemize}
+        \item Definition: $\square$Frege-Kalkül
+        \item Lemma: Doppelnegation überspringt modale Operatoren
+        \item Bemerkung: ursprüngliches Deduktionstheorem nicht möglich
+        \item Satz: modallogisches Deduktionstheorem
+        \item Lemma: Verallgemeinerung von K
+        \item Lemma: Korrektheitslemma für modallogisches Frege-Kalkül
+        \item Bemerkung: Vollständigkeit modallogisches Frege-Kalkül
+        \item Lemma: aus $\lnot\square β$ expandierte Formeln sind überflüssig
+        \item Lemma: Frege-Herleitung von $\perp$ aus widersprüchlichen Tableaux
+        \item Satz: Aus Tableau-Beweisen können Frege-Beweise gemacht werden.
+      \end{itemize}
+    % subsection modallogisches_frege_kalkül (end)
+
+    \begin{itemize}
+      \item Satz: Vollständigkeitssätze für die modale Aussagenlogik
+      \item Bemerkung: Beweisabhängigkeiten
+    \end{itemize}
+
+  % section modale_aussagenlogik (end)
+
+  \section{Algorithmische Umsetzung des Tableau-Kalküls} % (fold)
+  \label{sec:algorithmische_umsetzung_des_tableau_kalküls}
+
+    \begin{itemize}
+      \item Bemerkung: nichtdeterministischer Algorithmus, rekursive Maximum-Suche, Idee
+      \item Gültigkeitstest gemäß Tableau-Kalkül
+      \item Analyse des Gültigkeitstests
+      \item nichtdeterministischer Algorithmus
+      \item Gültigkeitstest für modallogische Formeln
+      \item Struktur der rekursiven Aufrufe
+      \item Analyse
+      \item Satz: Erfüllbarkeitsproblem der modalen Aussagenlogik ist in PSPACE
+      \item Komplexität von Logikproblemen
+    \end{itemize}
+
+  % section algorithmische_umsetzung_des_tableau_kalküls (end)
+
+  \section{Andere Modallogiken} % (fold)
+  \label{sec:andere_modallogiken}
+    \begin{itemize}
+      \item Beispiel: muddy children
+      \item Modellierung von Wissen
+      \item Grapheigenschaften
+      \item Grapheigenschaften für Kripke-Modelle
+      \item Modallogiken mit bestimmten Grapheigenschaften
+      \item Wissenslogiken
+      \item Andere Logiken mit Kripke-Semantik
+      \item Bemerkung: nicht-intuitionistische Beweise
+      \item intuitionistische Logik
+      \item Definition: Formeln der intuitionistischen Aussagenlogik
+      \item Definition: Semantik der intuitionistischen Aussagenlogik
+      \item Lemma: Persistenz gilt für alle Formeln
+      \item Definition: Gültigkeit
+      \item Lemma: Gesetz des ausgeschlossenen Dritten ist intuitionistisch nicht gültig.
+      \item Lemma: Eine de Morgan-Regel ist intuitionistisch nicht gültig.
+      \item Satz: Satz von Glivenko
+      \item Definition: Gödels Übersetzung intuitionistischer Formeln
+      \item Satz: Satz von McKinsey und Tarski
+    \end{itemize}
+  % section andere_modallogiken (end)
+
+  \section{Temporale Aussagenlogik} % (fold)
+  \label{sec:temporale_aussagenlogik}
+
+    \begin{itemize}
+      \item Einführendes Beispiel und Bemerkung
+    \end{itemize}
+
+    \subsection{Grundbegriffe der Zeitlogik LTL und ihrer Kalküle} % (fold)
+    \label{sub:grundbegriffe_der_zeitlogik_ltl_und_ihrer_kalküle}
+      \begin{itemize}
+        \item Definition: LTL-Formeln
+        \item Definition: Pfad-Erfüllungsrelation für LTL-Formeln
+        \item Bemerkung: intuitive Vorstellung
+        \item Definition: äquivalente LTL-Formeln
+        \item Lemma: Wichtige Äquivalenzen in LTL
+        \item Lemma: adäquate Mengen $\set{\lnot,\land,X,U}{}$ und $\set{\perp,\to,X,U}{}$
+        \item Definition: Erfüllbarkeit und Gültigkeit
+        \item Definition: Erfüllungsrelation für LTL-Formeln
+        \item Beispiel
+      \end{itemize}
+    % subsection grundbegriffe_der_zeitlogik_ltl_und_ihrer_kalküle (end)
+
+    \subsection{Tableau-Kalkül für LTL-Formeln} % (fold)
+    \label{sub:tableau_kalkül_für_ltl_formeln}
+      \begin{itemize}
+        \item Definition: Tableau für LTL-Formeln aus Atomen $\lnot,\land,X,U$
+        \item Notation
+        \item Bemerkung
+        \item Definition: erfolgloser Pfad eines LTL-Tableau
+        \item Definition: erfolgreicher Pfad eines LTL-Tableau
+        \item Definition: Tableau-beweisbare LTL-Formeln
+        \item Definition: systematisches LTL-Tableau
+        \item Lemma: endliche LTL-Tableaux reichen
+        \item Satz: Vollständigkeitssatz für Tableau-Beweisbarkeit
+      \end{itemize}
+    % subsection tableau_kalkül_für_ltl_formeln (end)
+
+    \subsection{Frege-Kalkül für LTL-Formeln} % (fold)
+    \label{sub:frege_kalkül_für_ltl_formeln}
+      \begin{itemize}
+        \item Definition: LTL-Frege-Kalkül
+      \end{itemize}
+    % subsection frege_kalkül_für_ltl_formeln (end)
+
+    \subsection{Endliche Automaten und reguläre Sprachen} % (fold)
+    \label{sub:endliche_automaten_und_reguläre_sprachen}
+      \begin{itemize}
+        \item Definition: endlicher Automat
+        \item Definition: akzeptierte Wörter eines endlichen Automaten
+        \item Satz: Äquivalenz von deterministischen und nicht-deterministischen Automaten
+        \item Definition: reguläre Sprachen
+        \item Satz: Abgeschlossenheit regulärer Sprachen unter Komplement, Vereinigung, Konkatenation und Sternbildung
+        \item Definition: Leerheitsproblem
+        \item Definition: Nicht-Leerheitsproblem
+        \item Algorithmus: Nicht-Leerheitsproblem
+        \item Komplexität der Leerheitsprobleme
+        \item Definition: Alphabet, endliche Wörter, ω-Wörter
+        \item Definition: Büchi-Automat
+        \item Beispiel
+        \item Lemma: nicht-deterministische Büchi-Automaten können mehr als deterministische Büchi-Automaten
+        \item Definition: ω-reguläre Sprachen
+        \item Lemma: Abschlusseigenschaften ω-reguläre Sprachen
+        \item Definition: Leerheitsproblem für Büchi-Automaten
+        \item Algorithmus: Nicht-Leerheitsproblem
+        \item Analyse des Algorithmus
+        \item Definition: verallgemeinerter Büchi-Automat
+        \item Beispiele
+        \item Lemma: Jede ω-Sprache, die von einem verallgemeinerten Büchi-Automaten akzeptiert wird, wird auch von Büchiautomat akzeptiert.
+      \end{itemize}
+    % subsection endliche_automaten_und_reguläre_sprachen (end)
+
+    \subsection{Das Gültigkeitsproblem für LTL} % (fold)
+    \label{sub:das_gültigkeitsproblem_für_ltl}
+      \begin{itemize}
+        \item Gültigkeitsproblem für LTL
+        \item Bemerkung: algorithmische Idee
+        \item Definition: φ-ähnliche Belegungsfolgen und Mengenfolgen
+        \item Definition: lokal-konsistente Menge für φ
+        \item Lemma
+        \item Definition: Nachbarkonsistenz
+        \item Lemma
+        \item Definition: globale Konsistenz
+        \item Lemma
+        \item Folgerung
+        \item Lemma
+        \item Satz: Charakterisierung Pfad-Erfüllungsrelation
+        \item Bemerkung: Konstruktion eines Büchi-Automaten
+        \item Beispiel
+        \item Definition: durch φ bestimmter Büchi-Automat $B_φ$
+        \item Satz
+        \item Sazt: Charakterisierung Gültigkeit
+        \item Algorithmus: Komplement des Gültigkeitsproblems für LTL
+        \item Analyse des Algorithmus
+        \item Satz: Gültigkeitsproblem für LTL ist in PSPACE
+      \end{itemize}
+    % subsection das_gültigkeitsproblem_für_ltl (end)
+
+    \subsection{Weitere temporale Logiken} % (fold)
+    \label{sub:weitere_temporale_logiken}
+      \begin{itemize}
+        \item Computation-tree-logic
+        \item Beispiel
+        \item Pfad-Quantoren
+        \item temporale Logiken
+        \item Komplexitätsresultate
+      \end{itemize}
+    % subsection weitere_temporale_logiken (end)
+
+  % section temporale_aussagenlogik (end)
+
+  \end{multicols}
+
+\end{document}
